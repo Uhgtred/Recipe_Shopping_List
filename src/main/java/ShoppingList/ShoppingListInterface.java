@@ -5,9 +5,9 @@ import Ingredients.IngredientInterface;
 import Recipe.RecipeInterface;
 
 public interface ShoppingListInterface {
-    void addItem(IngredientInterface item);
-    void addItem(GoodsInterface item);
-    void removeItem(IngredientInterface item);
-    void addRecipe(RecipeInterface recipe);
-    void removeRecipe(RecipeInterface recipe);
+    public void addItem(IngredientInterface item);
+    public void addItem(GoodsInterface item);
+    public void removeItem(IngredientInterface item);
+    public void addRecipe(RecipeInterface recipe);
+    public void removeRecipe(RecipeInterface recipe);
 }

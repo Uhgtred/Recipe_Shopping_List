@@ -1,7 +1,7 @@
 package Ingredients;
 
 public interface IngredientInterface {
-    Object getIngredient(String item);
-    void deleteIngredient(String item);
-    void createNewIngredient(String item);
+    public Object getIngredient(String item);
+    public void deleteIngredient(String item);
+    public void createNewIngredient(String item);
 }

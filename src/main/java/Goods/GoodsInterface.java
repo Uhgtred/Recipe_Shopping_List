@@ -1,7 +1,7 @@
 package Goods;
 
 public interface GoodsInterface {
-    Object getGood(String item);
-    void deleteGood(String item);
-    void createNewGood(String item);
+    public Object getGood(String item);
+    public void deleteGood(String item);
+    public void createNewGood(String item);
 }
