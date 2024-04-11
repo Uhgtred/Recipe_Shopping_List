@@ -7,4 +7,5 @@ public interface DatabaseInterface {
     public static Connection connectToDatabase(String url) {
         return null;
     }
+
 }
