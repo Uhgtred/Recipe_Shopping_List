@@ -1,5 +1,6 @@
 package Database;
 
+import javax.sql.DataSource;
 import java.sql.*;
 
 public class DatabaseConnector implements DatabaseInterface{
@@ -49,6 +50,19 @@ public class DatabaseConnector implements DatabaseInterface{
         }
         catch (SQLException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    private static DataSource createDataSource() {
+
+    }
+
+    public static Connection connectToDataSource(DataSource dataSource){
+        try {
+            Connection connection = DataSource.getConnection();
+            return connection;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
