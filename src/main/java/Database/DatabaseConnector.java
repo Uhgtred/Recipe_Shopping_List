@@ -1,5 +1,7 @@
 package Database;
 
+import com.zaxxer.hikari.HikariDataSource;
+
 import javax.sql.DataSource;
 import java.sql.*;
 
@@ -9,8 +11,10 @@ public class DatabaseConnector implements DatabaseInterface{
         // ; separates database url from additional options and additional options from each other
         // INIT everytime the connection is built up
 
-        String dataBasePath = "mem:;INIT=RUNSCRIPT FROM 'classpath:test.sql';";
-        Connection connection =  connectToDatabase(("jdbc:h2:"+ dataBasePath));
+        String dataBasePath = "jdbc:h2:mem:;INIT=RUNSCRIPT FROM 'classpath:test.sql';";
+        DataSource dataSource = createDataSource(dataBasePath);
+        Connection connection = connectToDataSource(dataSource);
+//        Connection connection =  connectToDataSource("jdbc:h2:"+ dataBasePath);
         try {
 //       TODO: This needs to go to another class later
             //------------------------------------------------------------
@@ -44,22 +48,22 @@ public class DatabaseConnector implements DatabaseInterface{
             updateStatement.setString(1,"Mongo");
             int deleteCount = inputStatement.executeUpdate();
             System.out.println("DeleteCount: " + deleteCount);
-
-
-
         }
         catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    private static DataSource createDataSource() {
-
+    @org.jetbrains.annotations.NotNull
+    private static DataSource createDataSource(String url) {
+        HikariDataSource hikariDataSource = new HikariDataSource();
+        hikariDataSource.setJdbcUrl(url);
+        return hikariDataSource;
     }
 
     public static Connection connectToDataSource(DataSource dataSource){
         try {
-            Connection connection = DataSource.getConnection();
+            Connection connection = dataSource.getConnection();
             return connection;
         } catch (SQLException e) {
             throw new RuntimeException(e);
