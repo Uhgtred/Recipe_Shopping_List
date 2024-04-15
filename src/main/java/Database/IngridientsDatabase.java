@@ -4,12 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
 public class IngridientsDatabase extends DataBaseOperator {
 
     private Connection connection;
 
-    public IngridientsDatabase(Connection connection) {this.connection = connection;}
+    public IngridientsDatabase(Connection connection) {
+        this.connection = connection;
+    }
 
     @Override
     ResultSet readEntries(String name) {
@@ -28,7 +32,7 @@ public class IngridientsDatabase extends DataBaseOperator {
     }
 
     @Override
-    void addEntry(String name, String value) {
+    void addEntry(String recipeName, Map<String, List<String>> recipe) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
