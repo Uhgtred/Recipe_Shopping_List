@@ -1,4 +1,4 @@
-package Database;
+package Database.DatabaseOperations;
 
 import java.sql.*;
 import java.util.List;

@@ -1,4 +1,4 @@
-package Database;
+package Database.DatabaseOperations;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

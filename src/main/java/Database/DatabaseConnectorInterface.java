@@ -11,5 +11,4 @@ public interface DatabaseConnectorInterface {
     static @Nullable Connection connectToDatabase(String url) {
         return null;
     }
-
 }

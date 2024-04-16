@@ -1,6 +1,7 @@
 package Database;
 
 import com.zaxxer.hikari.HikariDataSource;
+import org.jetbrains.annotations.NotNull;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -24,7 +25,7 @@ public class DatabaseConnector implements DatabaseConnectorInterface {
         return hikariDataSource;
     }
 
-    public static Connection connectToDataSource(DataSource dataSource){
+    public static Connection connectToDataSource(@NotNull DataSource dataSource){
         try {
             Connection connection = dataSource.getConnection();
             return connection;
