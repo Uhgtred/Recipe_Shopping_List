@@ -5,7 +5,7 @@
 [Recipe](#recipe)\
 [Ingredients](#ingredients)\
 [Shopping List](#shopping-list)\
-[Goods](#goods)
+[Goods](#nonfooditem)
 
 ---
 ### Recipe
