@@ -30,7 +30,7 @@ It shall be possible to add all ingredients of a recipe with a default amount.
 The amount of ingredients shall be adjustable by giving the recipe a number of people that this recipe is meant for. 
 
 ---
-### Goods
+### NonFoodItem
 
-Goods are non-edible things that can be added to the shopping list. 
+NonFoodItems are non-edible things that can be added to the shopping list. 
 They need to have an id that is exclusive for the good and also a string representing the name of the good, which also needs to be exclusive.

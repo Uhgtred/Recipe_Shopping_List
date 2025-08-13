@@ -1,0 +1,32 @@
+@startuml
+hide empty members
+
+abstract class AbstractShoppingList
+abstract class AbstractRecipe
+interface RecipeInterface
+class NonFoodItem
+interface ShoppingListInterface
+class RecipeIngredient
+class ConcreteShoppingList
+class ConcreteRecipe
+interface GUI
+abstract class AbstractItem
+
+GUI .u.> RecipeInterface
+GUI .u.> ShoppingListInterface
+
+AbstractRecipe ..|> RecipeInterface
+
+AbstractShoppingList ..|> ShoppingListInterface
+
+ConcreteShoppingList --|> AbstractShoppingList
+
+ConcreteRecipe  --|> AbstractRecipe
+
+RecipeIngredient "1..*" -u-* "1" AbstractRecipe
+RecipeIngredient --> AbstractItem
+
+NonFoodItem "0..*"-u-o AbstractShoppingList
+NonFoodItem --> AbstractItem
+
+@enduml
