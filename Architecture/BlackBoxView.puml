@@ -1,0 +1,45 @@
+@startuml
+hide empty members
+
+
+interface DataBaseInterface #lightgreen
+
+
+interface GUI #lightsalmon
+GUI ..u..> ApplicationAPI
+
+
+interface RecipeInterface #lightblue
+interface ShoppingListInterface #lightblue
+abstract class AbstractItem #lightblue
+
+class DatabaseAdapter
+DatabaseAdapter .u.> DataBaseInterface
+
+interface ApplicationAPI #lightblue
+ApplicationAPI .u.> RecipeInterface
+ApplicationAPI .u.> ShoppingListInterface
+
+abstract class AbstractRecipe #lightblue
+AbstractRecipe ...|> RecipeInterface
+
+abstract class AbstractShoppingList #lightblue
+AbstractShoppingList ...|> ShoppingListInterface
+
+class ConcreteShoppingList #lightblue
+ConcreteShoppingList --|> AbstractShoppingList
+ConcreteShoppingList .u.> DatabaseAdapter
+
+class ConcreteRecipe #lightblue
+ConcreteRecipe  --|> AbstractRecipe
+ConcreteRecipe .u.> DatabaseAdapter
+
+class RecipeIngredient #lightblue
+RecipeIngredient "1..*" -u-* "1" AbstractRecipe
+RecipeIngredient .u.|> AbstractItem
+
+class NonFoodItem #lightblue
+NonFoodItem "0..*"-u-o AbstractShoppingList
+NonFoodItem .u.|> AbstractItem
+
+@enduml

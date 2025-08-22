@@ -1,0 +1,14 @@
+@startuml
+
+component DataBase #lightgreen
+
+component Application #lightblue
+Application ..> DataBase
+
+component GUI #lightsalmon
+GUI ..> Application
+
+component Cloud
+Cloud <.u.> DataBase
+
+@enduml
