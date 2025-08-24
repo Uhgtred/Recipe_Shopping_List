@@ -5,7 +5,10 @@ hide empty members
 interface DataBaseInterface #lightgreen
 
 abstract class AbstractDatabase #lightgreen
-AbstractDatabase --|> DataBaseInterface
+AbstractDatabase -- DataBaseInterface
+
+class ConcreteDatabase #lightgreen
+ConcreteDatabase --|> AbstractDatabase
 
 interface GUI #lightsalmon
 GUI .u.> Application

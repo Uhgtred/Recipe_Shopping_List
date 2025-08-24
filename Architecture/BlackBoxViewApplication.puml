@@ -17,14 +17,14 @@ class DatabaseAdapter #lightblue
 DatabaseAdapter .u.> DataBaseInterface
 
 interface ApplicationAPI #lightblue
-ApplicationAPI .u.> RecipeInterface
-ApplicationAPI .u.> ShoppingListInterface
+ApplicationAPI .u.|> RecipeInterface
+ApplicationAPI .u.|> ShoppingListInterface
 
 abstract class AbstractRecipe #lightblue
-AbstractRecipe ...|> RecipeInterface
+AbstractRecipe ..|> RecipeInterface
 
 abstract class AbstractShoppingList #lightblue
-AbstractShoppingList ...|> ShoppingListInterface
+AbstractShoppingList ..|> ShoppingListInterface
 
 class ConcreteShoppingList #lightblue
 ConcreteShoppingList --|> AbstractShoppingList
@@ -35,11 +35,17 @@ ConcreteRecipe  --|> AbstractRecipe
 ConcreteRecipe .u.> DatabaseAdapter
 
 class RecipeIngredient #lightblue
-RecipeIngredient "1..*" -u-* "1" AbstractRecipe
-RecipeIngredient .u.|> AbstractItem
+RecipeIngredient "1..*" -u-* AbstractRecipe
+RecipeIngredient -u-|> AbstractItem
 
 class NonFoodItem #lightblue
 NonFoodItem "0..*"-u-o AbstractShoppingList
-NonFoodItem .u.|> AbstractItem
+NonFoodItem -u-|> AbstractItem
 
+legend bottom
+|    **Color**      | **Layer**             |
+| <#lightgreen>     | Database layer        |
+| <#lightblue>      | Application layer     |
+| <#lightsalmon>   | Presentation layer    |
+end legend
 @enduml
