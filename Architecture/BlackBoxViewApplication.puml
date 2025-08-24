@@ -13,7 +13,7 @@ interface RecipeInterface #lightblue
 interface ShoppingListInterface #lightblue
 abstract class AbstractItem #lightblue
 
-class DatabaseAdapter
+class DatabaseAdapter #lightblue
 DatabaseAdapter .u.> DataBaseInterface
 
 interface ApplicationAPI #lightblue

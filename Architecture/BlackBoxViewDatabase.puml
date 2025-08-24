@@ -1,0 +1,16 @@
+@startuml
+hide empty members
+
+
+interface DataBaseInterface #lightgreen
+
+abstract class AbstractDatabase #lightgreen
+AbstractDatabase --|> DataBaseInterface
+
+interface GUI #lightsalmon
+GUI .u.> Application
+
+class Application #lightblue
+Application .u.> DataBaseInterface
+
+@enduml
