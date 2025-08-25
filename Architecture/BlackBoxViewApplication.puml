@@ -13,39 +13,39 @@ interface RecipeInterface #lightblue
 interface ShoppingListInterface #lightblue
 abstract class AbstractItem #lightblue
 
-class DatabaseAdapter #lightblue
-DatabaseAdapter .u.> DataBaseInterface
+abstract class AbstractDatabaseAdapter #lightblue
+AbstractDatabaseAdapter .u.> DataBaseInterface
+
+class ConcreteDatabaseAdapter #lightblue
+ConcreteDatabaseAdapter -l-|> AbstractDatabaseAdapter
+
+class DataFlowController #lightblue
+DataFlowController "1" .u.> "1..*" AbstractDatabaseAdapter
 
 interface ApplicationAPI #lightblue
-ApplicationAPI .u.|> RecipeInterface
-ApplicationAPI .u.|> ShoppingListInterface
-
-abstract class AbstractRecipe #lightblue
-AbstractRecipe ..|> RecipeInterface
-
-abstract class AbstractShoppingList #lightblue
-AbstractShoppingList ..|> ShoppingListInterface
+ApplicationAPI .u..|> RecipeInterface
+ApplicationAPI .u..|> ShoppingListInterface
 
 class ConcreteShoppingList #lightblue
-ConcreteShoppingList --|> AbstractShoppingList
-ConcreteShoppingList .u.> DatabaseAdapter
+ConcreteShoppingList --|> ShoppingListInterface
+ConcreteShoppingList "1..*" .u.> "1" DataFlowController
 
 class ConcreteRecipe #lightblue
-ConcreteRecipe  --|> AbstractRecipe
-ConcreteRecipe .u.> DatabaseAdapter
+ConcreteRecipe  --|> RecipeInterface
+ConcreteRecipe "1..*" .u.> "1" DataFlowController
 
 class RecipeIngredient #lightblue
-RecipeIngredient "1..*" -u-* AbstractRecipe
-RecipeIngredient -u-|> AbstractItem
+RecipeIngredient "1..*" -u-* "1..*" ConcreteRecipe
+RecipeIngredient -d-|> AbstractItem
 
 class NonFoodItem #lightblue
-NonFoodItem "0..*"-u-o AbstractShoppingList
-NonFoodItem -u-|> AbstractItem
+NonFoodItem "0..*"-u-o "1..*" ConcreteShoppingList
+NonFoodItem -d-|> AbstractItem
 
 legend bottom
-|    **Color**      | **Layer**             |
+| **Color**         | **Layer**             |
 | <#lightgreen>     | Database layer        |
 | <#lightblue>      | Application layer     |
-| <#lightsalmon>   | Presentation layer    |
+| <#lightsalmon>    | Presentation layer    |
 end legend
 @enduml
