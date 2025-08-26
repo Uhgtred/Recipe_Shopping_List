@@ -2,7 +2,7 @@
 hide empty members
 
 
-interface DataBaseInterface #lightgreen
+interface DatabaseAPI #lightgreen
 
 
 interface GUI #lightsalmon
@@ -14,7 +14,7 @@ interface ShoppingListInterface #lightblue
 abstract class AbstractItem #lightblue
 
 abstract class AbstractDatabaseAdapter #lightblue
-AbstractDatabaseAdapter .u.> DataBaseInterface
+AbstractDatabaseAdapter .u.> DatabaseAPI
 
 class ConcreteDatabaseAdapter #lightblue
 ConcreteDatabaseAdapter -l-|> AbstractDatabaseAdapter
@@ -33,11 +33,11 @@ abstract class AbstractShoppingList #lightblue
 AbstractShoppingList ..|> ShoppingListInterface
 
 class ConcreteShoppingList #lightblue
-ConcreteShoppingList --|> ShoppingListInterface
+ConcreteShoppingList "0..*" --|> "1" AbstractShoppingList
 ConcreteShoppingList "1..*" .u.> "1" DataFlowController
 
 class ConcreteRecipe #lightblue
-ConcreteRecipe  --|> RecipeInterface
+ConcreteRecipe "0..*" --|> "1" AbstractRecipe
 ConcreteRecipe "1..*" .u.> "1" DataFlowController
 
 class RecipeIngredient #lightblue
@@ -48,7 +48,7 @@ class NonFoodItem #lightblue
 NonFoodItem "0..*"-u-o "1..*" ConcreteShoppingList
 NonFoodItem -d-|> AbstractItem
 
-legend bottom
+legend bottom left
 | **Color**         | **Layer**             |
 | <#lightgreen>     | Database layer        |
 | <#lightblue>      | Application layer     |
