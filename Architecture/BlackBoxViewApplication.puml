@@ -23,8 +23,14 @@ class DataFlowController #lightblue
 DataFlowController "1" .u.> "1..*" AbstractDatabaseAdapter
 
 interface ApplicationAPI #lightblue
-ApplicationAPI .u..|> RecipeInterface
-ApplicationAPI .u..|> ShoppingListInterface
+ApplicationAPI .u.|> RecipeInterface
+ApplicationAPI .u.|> ShoppingListInterface
+
+abstract class AbstractRecipe #lightblue
+AbstractRecipe ..|> RecipeInterface
+
+abstract class AbstractShoppingList #lightblue
+AbstractShoppingList ..|> ShoppingListInterface
 
 class ConcreteShoppingList #lightblue
 ConcreteShoppingList --|> ShoppingListInterface
