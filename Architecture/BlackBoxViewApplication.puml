@@ -6,47 +6,59 @@ interface DatabaseAPI #lightgreen
 
 
 interface GUI #lightsalmon
-GUI ..u..> ApplicationAPI
+GUI ..> ApplicationAPI
 
 
-interface RecipeInterface #lightblue
-interface ShoppingListInterface #lightblue
-abstract class AbstractItem #lightblue
+interface ItemListInterface #lightblue
+
+class ItemBuilder #lightblue{
+    + addRecipeQuantity()
+    + addRecipeUnit()
+    + addQuantity()
+    + build()
+}
+ItemBuilder ..> AbstractItem: <<create>>
+
+abstract class AbstractItem #lightblue{
+    - quantity
+}
 
 abstract class AbstractDatabaseAdapter #lightblue
-AbstractDatabaseAdapter .u.> DatabaseAPI
+AbstractDatabaseAdapter ..> DatabaseAPI
 
 class ConcreteDatabaseAdapter #lightblue
-ConcreteDatabaseAdapter -l-|> AbstractDatabaseAdapter
+ConcreteDatabaseAdapter --|> AbstractDatabaseAdapter
 
-class DataFlowController #lightblue
-DataFlowController "1" .u.> "1..*" AbstractDatabaseAdapter
+class DataStorageController #lightblue
+DataStorageController "1" ..> "1..*" AbstractDatabaseAdapter
 
 interface ApplicationAPI #lightblue
-ApplicationAPI .u.|> RecipeInterface
-ApplicationAPI .u.|> ShoppingListInterface
+ApplicationAPI ..|> ItemListInterface
 
-abstract class AbstractRecipe #lightblue
-AbstractRecipe ..|> RecipeInterface
+class ShoppingList #lightblue
+ShoppingList "0..*" --|> "1" AbstractItemList
 
-abstract class AbstractShoppingList #lightblue
-AbstractShoppingList ..|> ShoppingListInterface
+class Recipe #lightblue
+Recipe "0..*" --|> "1" AbstractItemList
 
-class ConcreteShoppingList #lightblue
-ConcreteShoppingList "0..*" --|> "1" AbstractShoppingList
-ConcreteShoppingList "1..*" .u.> "1" DataFlowController
+abstract class AbstractItemList #lightblue{
+    + addItem()
+    + removeItem()
+    + storeList()
+}
+AbstractItemList ..> DataStorageController
+AbstractItemList .l.> ItemListInterface
 
-class ConcreteRecipe #lightblue
-ConcreteRecipe "0..*" --|> "1" AbstractRecipe
-ConcreteRecipe "1..*" .u.> "1" DataFlowController
-
-class RecipeIngredient #lightblue
-RecipeIngredient "1..*" -u-* "1..*" ConcreteRecipe
-RecipeIngredient -d-|> AbstractItem
+class RecipeIngredient #lightblue {
+    - recipeQuantity
+    - recipeUnit
+}
+RecipeIngredient "1..*" --o "1..*" Recipe
+RecipeIngredient -u-|> AbstractItem
 
 class NonFoodItem #lightblue
-NonFoodItem "0..*"-u-o "1..*" ConcreteShoppingList
-NonFoodItem -d-|> AbstractItem
+NonFoodItem "0..*"--o "1..*" ShoppingList
+NonFoodItem -u-|> AbstractItem
 
 legend bottom left
 | **Color**         | **Layer**             |
