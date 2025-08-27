@@ -60,7 +60,7 @@ class NonFoodItem #lightblue
 NonFoodItem "0..*"--o "1..*" ShoppingList
 NonFoodItem -u-|> AbstractItem
 
-legend bottom left
+legend bottom right
 | **Color**         | **Layer**             |
 | <#lightgreen>     | Database layer        |
 | <#lightblue>      | Application layer     |
