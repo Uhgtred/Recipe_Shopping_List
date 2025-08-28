@@ -11,23 +11,39 @@ GUI ..> ApplicationAPI
 
 interface ItemListInterface #lightblue
 
+class ItemListBuilder #lightblue{
+    + addRecipeUnit()
+    + addInstructions()
+    + addDescription()
+    + addDataBase()
+    + build()
+}
+ItemListBuilder ..> Recipe: <<create>>
+ItemListBuilder ..> ShoppingList: <<create>>
+
 class ItemBuilder #lightblue{
-   + addRecipeQuantity()
-   + addRecipeUnit()
-   + addQuantity()
+   + addUnit()
+   + addName()
    + build()
 }
-ItemBuilder ..> AbstractItem: <<create>>
+ItemBuilder ..> ConcreteItem: <<create>>
 
 abstract class AbstractItem #lightblue{
-   - quantity
+   - unit
+   - name
+   + changeItem()
 }
+AbstractItem ..o AbstractItemList
+AbstractItem -- Unit
 
 abstract class AbstractDatabaseAdapter #lightblue
 AbstractDatabaseAdapter ..> DatabaseAPI
 
 class ConcreteDatabaseAdapter #lightblue
 ConcreteDatabaseAdapter --|> AbstractDatabaseAdapter
+
+class DatabaseAdapterBuilder #lightblue
+DatabaseAdapterBuilder ..> ConcreteDatabaseAdapter: <<create>>
 
 class DataStorageController #lightblue
 DataStorageController "1" ..> "1..*" AbstractDatabaseAdapter
@@ -38,27 +54,46 @@ ApplicationAPI ..|> ItemListInterface
 class ShoppingList #lightblue
 ShoppingList "0..*" --|> "1" AbstractItemList
 
-class Recipe #lightblue
+class Recipe #lightblue {
+    - instructions
+    - description
+    + getInstructions()
+    + setInstructions()
+    + getDescription()
+    + setDescription()
+}
 Recipe "0..*" --|> "1" AbstractItemList
 
 abstract class AbstractItemList #lightblue{
+   - name
+   - itemQuantity: [item: Quantity]
+   - dataBaseName: str
    + addItem()
    + removeItem()
+   + getItems()
    + storeList()
+   + changeList()
 }
 AbstractItemList ..> DataStorageController
 AbstractItemList .l.> ItemListInterface
+AbstractItemList -- Quantity
 
-class RecipeIngredient #lightblue {
-   - recipeQuantity
-   - recipeUnit
+class ConcreteItem #lightblue
+'NonFoodItem "0..*"--o "1..*" ShoppingList
+ConcreteItem -u-|> AbstractItem
+
+class Quantity #lightblue{
+    - unit: Unit
+    - quantity: int
+    + getUnit()
+    + getQuantity()
+    + setQuantity()
 }
-RecipeIngredient "1..*" --o "1..*" Recipe
-RecipeIngredient -u-|> AbstractItem
 
-class NonFoodItem #lightblue
-NonFoodItem "0..*"--o "1..*" ShoppingList
-NonFoodItem -u-|> AbstractItem
+class Unit #lightblue{
+    - unit: str
+    + getUnit()
+}
 
 legend bottom right
 | **Color**         | **Layer**             |
