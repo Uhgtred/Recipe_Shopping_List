@@ -36,17 +36,18 @@ abstract class AbstractItem #lightblue{
 AbstractItem ..o AbstractItemList
 AbstractItem -- Unit
 
-abstract class AbstractDatabaseAdapter #lightblue
+abstract class AbstractDatabaseAdapter #plum
 AbstractDatabaseAdapter ..> DatabaseAPI
 
-class ConcreteDatabaseAdapter #lightblue
+class ConcreteDatabaseAdapter #plum
 ConcreteDatabaseAdapter --|> AbstractDatabaseAdapter
 
-class DatabaseAdapterBuilder #lightblue
+class DatabaseAdapterBuilder #plum
 DatabaseAdapterBuilder ..> ConcreteDatabaseAdapter: <<create>>
 
-class DataStorageController #lightblue
+class DataStorageController #plum
 DataStorageController "1" ..> "1..*" AbstractDatabaseAdapter
+DataStorageController .u.> AbstractItemList
 
 interface ApplicationAPI #lightblue
 ApplicationAPI ..|> ItemListInterface
@@ -74,7 +75,6 @@ abstract class AbstractItemList #lightblue{
    + storeList()
    + changeList()
 }
-AbstractItemList ..> DataStorageController
 AbstractItemList .l.> ItemListInterface
 AbstractItemList -- Quantity
 
@@ -98,7 +98,8 @@ class Unit #lightblue{
 legend bottom right
 | **Color**         | **Layer**             |
 | <#lightgreen>     | Database layer        |
-| <#lightblue>      | Application layer     |
+| <#lightblue>      | Domain layer          |
+| <#plum>      | Application layer     |
 | <#lightsalmon>    | Presentation layer    |
 end legend
 @enduml
