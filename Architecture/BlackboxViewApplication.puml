@@ -28,7 +28,7 @@ class DatabaseAdapterBuilder #plum
 DatabaseAdapterBuilder ..> AbstractDatabaseAdapter: <<create>>
 
 class ItemListManager #lightblue
-ItemListManager "1" .d.> DataTransmitter
+ItemListManager .d.> DataTransmitter
 ItemListManager .u.> AbstractItemList
 
 class DataTransmitter #plum
