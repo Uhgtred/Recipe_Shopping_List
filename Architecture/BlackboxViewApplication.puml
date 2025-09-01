@@ -1,0 +1,79 @@
+@startuml
+hide empty members
+
+
+interface DatabaseAPI #lightgreen
+
+
+interface GUI #lightsalmon
+GUI ..> ApplicationAPI
+
+
+interface ItemListInterface #lightblue
+
+class ItemListBuilder #lightblue
+ItemListBuilder ..> AbstractItemList: <<create>>
+
+class ItemBuilder #lightblue
+ItemBuilder ..> AbstractItem: <<create>>
+
+abstract class AbstractItem #lightblue
+AbstractItem ..o AbstractItemList
+AbstractItem -- Unit
+
+abstract class AbstractDatabaseAdapter #plum
+AbstractDatabaseAdapter ..> DatabaseAPI
+
+class DatabaseAdapterBuilder #plum
+DatabaseAdapterBuilder ..> AbstractDatabaseAdapter: <<create>>
+
+class ItemListManager #lightblue
+ItemListManager .d.> DataTransmitter
+ItemListManager .u.> AbstractItemList
+
+class DataTransmitter #plum
+DataTransmitter ..> DatabaseAPI
+
+interface ApplicationAPI #lightblue
+ApplicationAPI ..|> ItemListInterface
+
+abstract class AbstractItemList #lightblue
+AbstractItemList .l.> ItemListInterface
+AbstractItemList -- Quantity
+
+class Quantity #lightblue
+
+class Unit #lightblue
+legend bottom right
+| **Color**         | **Layer**             |
+| <#lightgreen>     | Database layer        |
+| <#lightblue>      | Domain layer          |
+| <#plum>      | Application layer     |
+| <#lightsalmon>    | Presentation layer    |
+end legend
+@enduml
+
+# Decisions
+Language and Framework:
+Laguage that is going to be used mainly in this project is kotlin.
+This is a fast growing modern language, that runs on most operating systems and us fun to use.
+Pros:
+- Fun language
+- Easy to read
+- Cross platform
+Cons:
+- Small community -> fewer support
+- High learning curve
+
+The framework that is going to be used for this project is Compose multiplatform.
+With this it should be possible to run a graphical user interface (GUI)
+on most platforms and maybe even web in future as well.
+Pros:
+- Cross platform
+- Web in Beta
+Contra:
+- Web in Beta
+- Small community -> fewer support
+
+# Authentication:
+Firebender is going to be the choice for Authentication.
