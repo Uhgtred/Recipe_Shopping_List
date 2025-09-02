@@ -1,0 +1,61 @@
+@startuml
+'Sources:
+' 1. https://www.youtube.com/watch?v=KnSBNd3b0qI
+
+actor Developer
+component Git
+Developer -l-> Git: create Feature_Branch
+actor 2nd_Developer
+component Feature_Branch
+Developer --> Feature_Branch: (micro-)commits
+2nd_Developer --> Feature_Branch: CodeReview
+component Branch_protection
+Feature_Branch --> Branch_protection: apply protection rules
+component Ktlinter
+Branch_protection --> Ktlinter: code quality check
+
+component Build
+Feature_Branch -r-> Build
+component Build_and_compile_container
+Build --> Build_and_compile_container
+component UnitTests
+Build_and_compile_container --> UnitTests
+component Code_Coverage
+UnitTests --> Code_Coverage
+
+component Development_branch
+Build -r-> Development_branch: commit-merge
+
+component Test
+Development_branch --> Test
+component Integration_Tests
+Test --> Integration_Tests: manual
+
+component Release
+Development_branch -r-> Release
+actor 3rd_Developer
+3rd_Developer ..> Development_branch: Review (optional)
+@enduml
+# Feature_Branch
+The developer who is applied to developing a particular feature shall at first create a feature-branch.
+This feature-branch shall (by default) derive from the "Development"-branch.
+The developer shall commit to this branch regularly, so that it is always up to date.
+Also the advantage of micro-commits is, that in case of problems each commit can be checked against.
+This provides a history and makes it easier to see when a particular problem has evolved.
+
+# Branch_protection
+The "Development"-branch shall never contain untested code.
+Anything that is going to be merged to this branch has to pass Code_Coverage and linting.
+The "master"-branch is only for Releases!
+Anything that is going to be merged to this branch needs to be a fully developed feature that has passed
+at least one code-review, code-coverage and linting, as well as manual integration-tests!
+
+# Integration_Tests
+Manual integration-tests shall test the application and GUI for functionality and bugs.
+Anything that is found during this kind of tests has to be documented and there needs to be an issue
+for any problem that has been found during the integration-tests.
+
+# UnitTests
+Each Class should have a line-coverage of at least 80% and a method-coverage of 100%.
+This rule may only be broken if there is a documented reason for it.
+
