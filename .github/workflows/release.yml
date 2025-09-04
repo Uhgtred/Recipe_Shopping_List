@@ -33,7 +33,7 @@ jobs:
             -v ${{ github.workspace }}:/workspace \
             -v ~/.gradle:/home/gradle/.gradle \
             -w /workspace \
-            android-build:latest bash -lc "printf 'sdk.dir=/opt/android-sdk\n' > local.properties && ./gradlew --no-daemon ktlintCheck build testDebugUnitTest koverXmlReport koverVerify"
+            android-build:latest bash -lc "printf 'sdk.dir=/opt/android-sdk\n' > local.properties && chmod +x ./gradlew && ./gradlew --no-daemon ktlintCheck build testDebugUnitTest koverXmlReport koverVerify"
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
