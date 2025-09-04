@@ -2,6 +2,38 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ktlint)
+    alias(libs.plugins.kover)
+}
+
+ktlint {
+    android.set(true)
+}
+
+koverReport {
+    filters {
+        excludes {
+            classes("*.BuildConfig")
+        }
+    }
+}
+
+kover {
+    verify {
+        rule {
+            name = "Minimum line coverage"
+            bound {
+                minValue = 80
+            }
+        }
+        rule {
+            name = "Method coverage must be 100%"
+            bound {
+                metric = kotlinx.kover.gradle.plugin.dsl.Metric.METHOD
+                minValue = 100
+            }
+        }
+    }
 }
 
 android {
