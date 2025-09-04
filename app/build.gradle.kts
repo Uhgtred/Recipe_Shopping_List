@@ -16,18 +16,13 @@ koverReport {
             classes("*.BuildConfig")
         }
     }
-}
-
-kover {
     verify {
-        rule {
-            name = "Minimum line coverage"
+        rule("Minimum line coverage") {
             bound {
                 minValue = 80
             }
         }
-        rule {
-            name = "Method coverage must be 100%"
+        rule("Method coverage must be 100%") {
             bound {
                 metric = kotlinx.kover.gradle.plugin.dsl.Metric.METHOD
                 minValue = 100
