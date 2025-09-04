@@ -22,8 +22,8 @@ koverReport {
     verify {
         rule("Minimum line coverage") {
             bound {
-                counter = CounterType.LINE
-                valueType = ValueType.COVERED_PERCENTAGE
+                counter = kotlinx.kover.gradle.plugin.dsl.CounterType.LINE
+                valueType = kotlinx.kover.gradle.plugin.dsl.ValueType.COVERED_PERCENTAGE
                 minValue = 80
             }
         }
