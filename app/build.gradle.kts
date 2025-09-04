@@ -9,10 +9,6 @@ plugins {
     alias(libs.plugins.kover)
 }
 
-ktlint {
-    android.set(true)
-}
-
 koverReport {
     filters {
         excludes {
@@ -22,8 +18,8 @@ koverReport {
     verify {
         rule("Minimum line coverage") {
             bound {
-                counter = kotlinx.kover.gradle.plugin.dsl.CounterType.LINE
-                valueType = kotlinx.kover.gradle.plugin.dsl.ValueType.COVERED_PERCENTAGE
+                counter = CounterType.LINE
+                valueType = ValueType.COVERED_PERCENTAGE
                 minValue = 80
             }
         }
