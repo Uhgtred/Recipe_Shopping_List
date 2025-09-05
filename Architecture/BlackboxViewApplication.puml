@@ -21,18 +21,18 @@ abstract class AbstractItem #lightblue
 AbstractItem ..o AbstractItemList
 AbstractItem -- Unit
 
-abstract class AbstractDatabaseAdapter #plum
-AbstractDatabaseAdapter ..> DatabaseAPI
+abstract class AbstractDatabaseAdapter #lightgreen
+AbstractDatabaseAdapter .u.> DatabaseAPI
 
-class DatabaseAdapterBuilder #plum
-DatabaseAdapterBuilder ..> AbstractDatabaseAdapter: <<create>>
+class DatabaseAdapterBuilder #lightgreen
+DatabaseAdapterBuilder .l.> AbstractDatabaseAdapter: <<create>>
 
 class ItemListManager #lightblue
-ItemListManager .d.> DataTransmitter
 ItemListManager .u.> AbstractItemList
 
-class DataTransmitter #plum
-DataTransmitter ..> DatabaseAPI
+class DataAccessController #lightgreen
+DataAccessController ..> DatabaseAPI
+DataAccessController .u.> ItemListManager
 
 interface ApplicationAPI #lightblue
 ApplicationAPI ..|> ItemListInterface
@@ -47,8 +47,7 @@ class Unit #lightblue
 legend bottom right
 | **Color**         | **Layer**             |
 | <#lightgreen>     | Database layer        |
-| <#lightblue>      | Domain layer          |
-| <#plum>      | Application layer     |
+| <#lightblue>      | Application layer     |
 | <#lightsalmon>    | Presentation layer    |
 end legend
 @enduml

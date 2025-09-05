@@ -1,9 +1,9 @@
 @startuml
 
-component DataBase #lightgreen
-
 component Application #lightblue
-Application ..> DataBase
+
+component DataBase #lightgreen
+DataBase .u.> Application
 
 component GUI #lightsalmon
 GUI ..> Application
