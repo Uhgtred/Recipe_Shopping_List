@@ -10,10 +10,13 @@ AbstractDatabase -- DataBaseInterface
 class ConcreteDatabase #lightgreen
 ConcreteDatabase --|> AbstractDatabase
 
+class DataAccessController #lightgreen
+DataAccessController ..> Application
+DataAccessController .u.> DataBaseInterface
+
 interface GUI #lightsalmon
 GUI .u.> Application
 
 class Application #lightblue
-Application .u.> DataBaseInterface
 
 @enduml

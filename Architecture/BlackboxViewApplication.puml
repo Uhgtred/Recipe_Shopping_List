@@ -6,7 +6,7 @@ interface DatabaseAPI #lightgreen
 
 
 interface GUI #lightsalmon
-GUI ..> ApplicationAPI
+GUI ...> ApplicationAPI
 
 
 interface ItemListInterface #lightblue
@@ -29,13 +29,14 @@ DatabaseAdapterBuilder .l.> AbstractDatabaseAdapter: <<create>>
 
 class ItemListManager #lightblue
 ItemListManager .u.> AbstractItemList
+ItemListManager ..> ItemListInterface
 
 class DataAccessController #lightgreen
 DataAccessController ..> DatabaseAPI
-DataAccessController .u.> ItemListManager
+DataAccessController ..u.> ApplicationAPI
 
 interface ApplicationAPI #lightblue
-ApplicationAPI ..|> ItemListInterface
+ApplicationAPI ..> ItemListManager
 
 abstract class AbstractItemList #lightblue
 AbstractItemList .l.> ItemListInterface

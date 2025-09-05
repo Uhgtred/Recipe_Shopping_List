@@ -2,13 +2,6 @@
 hide empty members
 
 
-interface DatabaseAPI #lightgreen
-
-
-interface GUI #lightsalmon
-GUI ..> ApplicationAPI
-
-
 interface ItemListInterface #lightblue
 
 class ItemListBuilder #lightblue{
@@ -36,21 +29,12 @@ abstract class AbstractItem #lightblue{
 AbstractItem ..o AbstractItemList
 AbstractItem -- Unit
 
-abstract class AbstractDatabaseAdapter #plum
-AbstractDatabaseAdapter ..> DatabaseAPI
-
-class ConcreteDatabaseAdapter #plum
-ConcreteDatabaseAdapter --|> AbstractDatabaseAdapter
-
-class DatabaseAdapterBuilder #plum
-DatabaseAdapterBuilder ..> ConcreteDatabaseAdapter: <<create>>
-
-class DataStorageController #plum
-DataStorageController "1" ..> "1..*" AbstractDatabaseAdapter
-DataStorageController .u.> AbstractItemList
+class ItemListManager #lightblue
+ItemListManager .u.> AbstractItemList
+ItemListManager .u.> ItemListInterface
 
 interface ApplicationAPI #lightblue
-ApplicationAPI ..|> ItemListInterface
+ApplicationAPI .r.> ItemListManager
 
 class ShoppingList #lightblue
 ShoppingList "0..*" --|> "1" AbstractItemList
@@ -97,9 +81,6 @@ class Unit #lightblue{
 
 legend bottom right
 | **Color**         | **Layer**             |
-| <#lightgreen>     | Database layer        |
-| <#lightblue>      | Domain layer          |
-| <#plum>      | Application layer     |
-| <#lightsalmon>    | Presentation layer    |
+| <#lightblue>      | Application layer     |
 end legend
 @enduml
