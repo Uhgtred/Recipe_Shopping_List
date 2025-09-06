@@ -38,3 +38,13 @@ tasks.register("doctorAndroidSdk") {
         println("[doctorAndroidSdk] OK: SDK path '$rootPath' with Build-Tools 35.0.0 and Platform android-36 present.")
     }
 }
+// CI-only: fail fast with clear diagnostics before Android plugin tries to access SDK
+if (System.getenv("CI") == "true") {
+    subprojects {
+        afterEvaluate {
+            tasks.matching { it.name == "preBuild" }.configureEach {
+                dependsOn(rootProject.tasks.named("doctorAndroidSdk"))
+            }
+        }
+    }
+}
