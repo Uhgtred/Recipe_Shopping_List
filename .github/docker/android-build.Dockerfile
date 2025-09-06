@@ -25,7 +25,9 @@ RUN yes | sdkmanager --licenses
 RUN sdkmanager \
     "platform-tools" \
     "platforms;android-36" \
-    "build-tools;36.0.0"
+    "build-tools;35.0.0"
+# Ensure SDK directory is writable by the gradle user
+RUN chown -R gradle:gradle ${ANDROID_SDK_ROOT}
 
 # Create gradle user for caching
 RUN useradd -m gradle && mkdir -p ${GRADLE_USER_HOME} && chown -R gradle:gradle ${GRADLE_USER_HOME}
