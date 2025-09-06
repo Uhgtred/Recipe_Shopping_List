@@ -9,6 +9,7 @@ plugins {
 android {
     namespace = "com.example.recipe_shopping_list"
     compileSdk = 36
+    buildToolsVersion = "34.0.0"
 
     defaultConfig {
         applicationId = "com.example.recipe_shopping_list"
