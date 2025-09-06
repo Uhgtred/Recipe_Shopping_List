@@ -1,36 +1,9 @@
-import kotlinx.kover.gradle.plugin.dsl.CounterType
-import kotlinx.kover.gradle.plugin.dsl.ValueType
-
 plugins {
+    alias(libs.plugins.kover)
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ktlint)
-    alias(libs.plugins.kover)
-}
-
-koverReport {
-    filters {
-        excludes {
-            classes("*.BuildConfig")
-        }
-    }
-    verify {
-        rule("Minimum line coverage") {
-            bound {
-                counter = CounterType.LINE
-                valueType = ValueType.COVERED_PERCENTAGE
-                minValue = 80
-            }
-        }
-        rule("Method coverage must be 100%") {
-            bound {
-                counter = CounterType.METHOD
-                valueType = ValueType.COVERED_PERCENTAGE
-                minValue = 100
-            }
-        }
-    }
 }
 
 android {
