@@ -2,7 +2,6 @@
 FROM eclipse-temurin:17-jdk
 
 ENV ANDROID_SDK_ROOT=/opt/android-sdk \
-    ANDROID_HOME=/opt/android-sdk \
     DEBIAN_FRONTEND=noninteractive \
     GRADLE_USER_HOME=/home/gradle/.gradle
 
@@ -26,11 +25,11 @@ RUN sdkmanager \
     "platform-tools" \
     "platforms;android-36" \
     "build-tools;35.0.0"
-# Ensure SDK directory is writable by the gradle user
-RUN chown -R gradle:gradle ${ANDROID_SDK_ROOT}
 
 # Create gradle user for caching
-RUN useradd -m gradle && mkdir -p ${GRADLE_USER_HOME} && chown -R gradle:gradle ${GRADLE_USER_HOME}
+RUN useradd -m gradle && mkdir -p ${GRADLE_USER_HOME}
+# Ensure SDK directory is writable by the gradle user
+RUN chown -R gradle:gradle ${ANDROID_SDK_ROOT}
 USER gradle
 WORKDIR /workspace
 
