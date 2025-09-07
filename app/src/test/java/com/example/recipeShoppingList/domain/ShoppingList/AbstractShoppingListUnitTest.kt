@@ -1,22 +1,14 @@
 package com.example.recipeShoppingList
 
 import AbstractShoppingList
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
-import org.junit.Assert.*
-
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
 class AbstractShoppingListUnitTest {
-
-
     @Test
     fun `getListItems should return all items that are available in the shopping-list`() {
-        val helperClass = Helper_Class()
-        val otherHelperClass = Other_Helper_Class()
+        val helperClass = HelperClass()
+        val otherHelperClass = OtherHelperClass()
         val shoppinglistItems: List<String> = helperClass.getListItems()
         val otherShoppingListItems: List<String> = otherHelperClass.getListItems()
         println(shoppinglistItems)
@@ -25,22 +17,30 @@ class AbstractShoppingListUnitTest {
     }
 }
 
-class Helper_Class(): AbstractShoppingList(){
-
+class HelperClass(): AbstractShoppingList() {
+    /*
+    This class is needed for instancing a concrete implementation of a prototype
+    Note:
+    There need to be two separate classes for the test since this needs to be
+    diffent implementations of the same prototype.
+     */
     init {
         addItem("test")
         addItem("2ndTest")
         addItem("3rdTest")
     }
-
 }
 
-class Other_Helper_Class: AbstractShoppingList(){
-
-    init{
+class OtherHelperClass: AbstractShoppingList() {
+    /*
+    This class is needed for instancing a concrete implementation of a prototype
+    Note:
+    There need to be two separate classes for the test since this needs to be
+    diffent implementations of the same prototype.
+     */
+    init {
         addItem("otherTest")
         addItem("2ndOtherTest")
         addItem("3rdOtherTest")
     }
-
 }
