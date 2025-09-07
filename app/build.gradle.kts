@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.recipe_shopping_list"
+    namespace = "com.example.recipeShoppingList"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.recipe_shopping_list"
+        applicationId = "com.example.recipeShoppingList"
         minSdk = 21
         targetSdk = 36
         versionCode = 1
