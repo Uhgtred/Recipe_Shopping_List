@@ -2,13 +2,14 @@
 
 component Application #lightblue
 
-component DataBase #lightgreen
-DataBase .u.> Application
+database DataBase #lightgreen
+
+component Repository
+Repository .l.> Application: loads and saves state of
+Repository ..> DataBase: commits changes to
 
 component GUI #lightsalmon
-GUI ..> Application
-
-component Cloud
-Cloud <.u.> DataBase
+GUI ..> Application: controls
+GUI ..> Repository: controls
 
 @enduml
