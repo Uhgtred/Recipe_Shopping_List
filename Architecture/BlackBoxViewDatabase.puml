@@ -2,21 +2,22 @@
 hide empty members
 
 
-interface DataBaseInterface #lightgreen
+class Database #lightgreen
 
-abstract class AbstractDatabase #lightgreen
-AbstractDatabase -- DataBaseInterface
+abstract class AbstractRepository #lightgreen
 
-class ConcreteDatabase #lightgreen
-ConcreteDatabase --|> AbstractDatabase
+class ConcreteRepository #lightgreen
+ConcreteRepository --|> AbstractRepository
+ConcreteRepository .u.> Database
 
-class DataAccessController #lightgreen
-DataAccessController ..> Application
-DataAccessController .u.> DataBaseInterface
+interface Repository #lightgreen
+Repository ..> ServiceLayer
+Repository -l- AbstractRepository
+
 
 interface GUI #lightsalmon
-GUI .u.> Application
+GUI .u.> ServiceLayer
 
-class Application #lightblue
+interface ServiceLayer #plum
 
 @enduml

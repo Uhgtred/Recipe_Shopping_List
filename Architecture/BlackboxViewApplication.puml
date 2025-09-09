@@ -2,45 +2,39 @@
 hide empty members
 
 
-interface DatabaseAPI #lightgreen
+class Database #lightgreen
 
 
 interface GUI #lightsalmon
-GUI ...> ApplicationAPI
+GUI ...> ServiceLayer
 
 
 interface ItemListInterface #lightblue
 
 class ItemListBuilder #lightblue
-ItemListBuilder ..> AbstractItemList: <<create>>
+ItemListBuilder ..> ConcreteItemList: <<create>>
+
+class ConcreteItemList #lightblue
+ConcreteItemList -u-|> AbstractItemList
 
 class ItemBuilder #lightblue
 ItemBuilder ..> AbstractItem: <<create>>
 
 abstract class AbstractItem #lightblue
 AbstractItem ..o AbstractItemList
-AbstractItem -- Unit
+AbstractItem -r- Unit
 
-abstract class AbstractDatabaseAdapter #lightgreen
-AbstractDatabaseAdapter .u.> DatabaseAPI
+class Repository #lightgreen
+Repository .u.> Database
+Repository ..> ServiceLayer
 
-class DatabaseAdapterBuilder #lightgreen
-DatabaseAdapterBuilder .l.> AbstractDatabaseAdapter: <<create>>
-
-class ItemListManager #lightblue
-ItemListManager .u.> AbstractItemList
-ItemListManager ..> ItemListInterface
-
-class DataAccessController #lightgreen
-DataAccessController ..> DatabaseAPI
-DataAccessController ..u.> ApplicationAPI
-
-interface ApplicationAPI #lightblue
-ApplicationAPI ..> ItemListManager
+interface ServiceLayer #plum
+ServiceLayer .l.> ItemListInterface
+ServiceLayer ..> ItemListBuilder
 
 abstract class AbstractItemList #lightblue
-AbstractItemList .l.> ItemListInterface
-AbstractItemList -- Quantity
+AbstractItemList ..|> ItemListInterface
+AbstractItemList -r- Quantity
 
 class Quantity #lightblue
 
@@ -50,6 +44,7 @@ legend bottom right
 | <#lightgreen>     | Database layer        |
 | <#lightblue>      | Application layer     |
 | <#lightsalmon>    | Presentation layer    |
+| <#plum>           | Service layer         |
 end legend
 @enduml
 
@@ -77,3 +72,4 @@ Contra:
 
 # Authentication:
 Firebender is going to be the choice for Authentication.
+

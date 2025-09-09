@@ -8,8 +8,12 @@ component Repository
 Repository .l.> Application: loads and saves state of
 Repository ..> DataBase: commits changes to
 
-component GUI #lightsalmon
-GUI ..> Application: controls
-GUI ..> Repository: controls
 
+component ServiceLayer #plum
+ServiceLayer ..> Application: controls
+ServiceLayer ..> Repository: controls
+
+
+component GUI #lightsalmon
+GUI ..> ServiceLayer
 @enduml
