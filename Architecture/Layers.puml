@@ -1,0 +1,22 @@
+@startuml
+
+' Layers:
+card Presentation_Layer #lightsalmon
+card Service_Layer #plum
+card Repository_Layer #khaki
+card Application_Layer #lightblue
+card Database_Layer #lightgreen
+
+' Dependencies:
+' Note:
+' Layers that point towards another layer are dependant on the layer they are pointing towards!
+' Application_Layer is supposed to have no dependencies on any of the other layers.
+' Layers shall only depend on the layers underneath not above (same level is okay).
+Presentation_Layer --> Service_Layer
+
+Service_Layer --> Repository_Layer
+Service_Layer --> Application_Layer
+
+Repository_Layer --> Database_Layer
+Repository_Layer -r-> Application_Layer
+@enduml

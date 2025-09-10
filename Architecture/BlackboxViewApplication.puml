@@ -6,7 +6,7 @@ class Database #lightgreen
 
 
 interface GUI #lightsalmon
-GUI ...> ServiceLayer
+GUI ...> ItemListService
 
 
 interface ItemListInterface #lightblue
@@ -15,33 +15,44 @@ class ItemListBuilder #lightblue
 ItemListBuilder ..> ConcreteItemList: <<create>>
 
 class ConcreteItemList #lightblue
-ConcreteItemList -u-|> AbstractItemList
+ConcreteItemList --|> AbstractItemList: <<implement>>
 
 class ItemBuilder #lightblue
 ItemBuilder ..> AbstractItem: <<create>>
 
 abstract class AbstractItem #lightblue
-AbstractItem ..o AbstractItemList
-AbstractItem -r- Unit
+AbstractItem .l.o AbstractItemList
+AbstractItem -- Unit
 
-class Repository #lightgreen
-Repository .u.> Database
-Repository ..> ServiceLayer
+class Repository #khaki
+Repository ..> Database
+Repository ..> ConcreteItemList: <<store \n& load>>
 
-interface ServiceLayer #plum
-ServiceLayer .l.> ItemListInterface
-ServiceLayer ..> ItemListBuilder
+' This will be two services actually:
+'   RecipeService
+'   ShoppingListService
+' Since this would drastically reduce readability of the diagram those two services will both be
+' presented by "ItemListService"
+class ItemListService #plum {
+}
+ItemListService ..> ItemListInterface
+ItemListService ..> ItemListBuilder
+ItemListService ..> Repository
+ItemListService ..> ItemBuilder
+note right of ItemListService: This will be two services: \nRecipeService & ShoppingListService \nSince this would drastically reduce readability of the diagram, \nthose two services will both be presented by: "ItemListService"
 
 abstract class AbstractItemList #lightblue
-AbstractItemList ..|> ItemListInterface
-AbstractItemList -r- Quantity
+AbstractItemList .l.|> ItemListInterface
+AbstractItemList -- Quantity
 
 class Quantity #lightblue
+Quantity o.r. Unit
 
 class Unit #lightblue
 legend bottom right
 | **Color**         | **Layer**             |
 | <#lightgreen>     | Database layer        |
+| <#khaki>          | Repository layer      |
 | <#lightblue>      | Application layer     |
 | <#lightsalmon>    | Presentation layer    |
 | <#plum>           | Service layer         |

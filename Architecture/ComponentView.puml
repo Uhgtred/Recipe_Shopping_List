@@ -4,7 +4,7 @@ component Application #lightblue
 
 database DataBase #lightgreen
 
-component Repository
+component Repository #khaki
 Repository .l.> Application: loads and saves state of
 Repository ..> DataBase: commits changes to
 
