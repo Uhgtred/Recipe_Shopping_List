@@ -1,0 +1,40 @@
+@startuml
+' Source: https://www.youtube.com/watch?v=KnSBNd3b0qI
+
+left to right direction
+skinparam componentStyle rectangle
+skinparam linetype polyline
+
+actor Developer
+actor 2nd_Developer
+actor 3rd_Developer
+
+component Git
+component Feature_Branch
+component Branch_protection
+component Ktlinter
+component Build
+component Build_and_compile_container
+component UnitTests
+component Code_Coverage
+component Development_branch
+component Test
+component Integration_Tests
+component Release
+
+Developer -l-> Git : create Feature_Branch
+Developer --> Feature_Branch : (micro-)commits
+2nd_Developer --> Feature_Branch : CodeReview
+Feature_Branch --> Branch_protection : apply protection rules
+Branch_protection --> Ktlinter : code quality check
+Feature_Branch -r-> Build
+Build --> Build_and_compile_container
+Build_and_compile_container --> UnitTests
+UnitTests --> Code_Coverage
+Build -r-> Development_branch : commit-merge
+Development_branch --> Test
+Test --> Integration_Tests : manual
+Development_branch -r-> Release
+3rd_Developer ..> Development_branch : Review (optional)
+
+@enduml

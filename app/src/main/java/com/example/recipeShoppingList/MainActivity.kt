@@ -1,4 +1,4 @@
-package com.example.recipe_shopping_list
+package com.example.recipeShoppingList
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,18 +11,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.recipe_shopping_list.ui.theme.Recipe_Shopping_ListTheme
+import com.example.recipeShoppingList.ui.theme.RecipeShoppingListTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Recipe_Shopping_ListTheme {
+            RecipeShoppingListTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
                         name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+                        modifier = Modifier.padding(innerPadding),
                     )
                 }
             }
@@ -30,18 +30,23 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@Suppress("ktlint:standard:function-naming")
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun Greeting(
+    name: String,
+    modifier: Modifier = Modifier,
+) {
     Text(
         text = "Hello $name!",
-        modifier = modifier
+        modifier = modifier,
     )
 }
 
+@Suppress("ktlint:standard:function-naming")
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    Recipe_Shopping_ListTheme {
+    RecipeShoppingListTheme {
         Greeting("Android")
     }
 }
