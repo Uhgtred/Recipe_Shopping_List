@@ -1,6 +1,5 @@
-package com.example.recipeShoppingList
+package com.example.recipeShoppingList.domain.shoppingList
 
-import AbstractShoppingList
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -17,7 +16,7 @@ class AbstractShoppingListUnitTest {
     }
 }
 
-class HelperClass(): AbstractShoppingList() {
+class HelperClass : AbstractItemList() {
     /*
     This class is needed for instancing a concrete implementation of a prototype
     Note:
@@ -31,7 +30,7 @@ class HelperClass(): AbstractShoppingList() {
     }
 }
 
-class OtherHelperClass: AbstractShoppingList() {
+class OtherHelperClass : AbstractItemList() {
     /*
     This class is needed for instancing a concrete implementation of a prototype
     Note:

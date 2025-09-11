@@ -7,7 +7,7 @@ pluginManagement {
     }
 }
 
-buildscript{
+buildscript {
     repositories {
         google()
         mavenCentral()

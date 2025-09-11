@@ -17,16 +17,19 @@ tasks.register("doctorAndroidSdk") {
     doLast {
         val envRoot = System.getenv("ANDROID_SDK_ROOT") ?: System.getenv("ANDROID_HOME")
         val localProps = rootProject.file("local.properties")
-        val sdkDirFromLocal = if (localProps.exists()) {
-            val props = java.util.Properties()
-            localProps.inputStream().use { ins -> props.load(ins) }
-            props.getProperty("sdk.dir")
-        } else null
+        val sdkDirFromLocal =
+            if (localProps.exists()) {
+                val props = java.util.Properties()
+                localProps.inputStream().use { ins -> props.load(ins) }
+                props.getProperty("sdk.dir")
+            } else {
+                null
+            }
         val rootPath = envRoot ?: sdkDirFromLocal
         require(!rootPath.isNullOrBlank()) {
             "ANDROID_SDK_ROOT/ANDROID_HOME not set and no sdk.dir in local.properties. Set a writable SDK path or add sdk.dir."
         }
-        val sdk = java.io.File(rootPath)
+        val sdk = File(rootPath)
         require(sdk.exists() && sdk.isDirectory && sdk.canWrite()) {
             "SDK directory '$rootPath' is not a writable directory. Point ANDROID_SDK_ROOT to a writable location."
         }
