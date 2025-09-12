@@ -1,0 +1,53 @@
+name: Development Branch CI
+
+on:
+  push:
+    branches:
+      - development
+
+jobs:
+  build-test:
+    name: Build and Test on development
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Cache Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Build Android build container
+        run: |
+          docker build -f .github/docker/android-build.Dockerfile -t android-build:latest .
+
+      - name: Gradle - build + unit tests + coverage
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}:/workspace \
+            -v ~/.gradle:/home/gradle/.gradle \
+            -w /workspace \
+            android-build:latest bash -lc "printf 'sdk.dir=/opt/android-sdk\n' > local.properties && chmod +x ./gradlew && ./gradlew --no-daemon build testDebugUnitTest koverXmlReport"
+
+      - name: Upload build artifacts (APK/AAB if any)
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dev-build-artifacts
+          path: |
+            **/build/outputs/**
+            **/build/reports/kover/**
+
+  manual-integration-tests:
+    name: Integration Tests (manual)
+    needs: build-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pending Manual Integration Tests
+        run: |
+          echo "Manual integration tests required. Document findings and create issues for problems found."

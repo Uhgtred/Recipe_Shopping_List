@@ -1,15 +1,17 @@
 plugins {
+    alias(libs.plugins.kover)
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ktlint)
 }
 
 android {
-    namespace = "com.example.recipe_shopping_list"
+    namespace = "com.example.recipeShoppingList"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.recipe_shopping_list"
+        applicationId = "com.example.recipeShoppingList"
         minSdk = 21
         targetSdk = 36
         versionCode = 1
@@ -23,7 +25,6 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
             )
         }
     }
