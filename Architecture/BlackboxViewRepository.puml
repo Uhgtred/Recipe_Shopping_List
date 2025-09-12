@@ -1,0 +1,18 @@
+@startuml
+hide empty members
+
+package Repository #khaki{
+    abstract class RepositoryPrototype{
+        createEntry()
+        removeEntry()
+        updateEntry()
+        store()
+        load(append: bool)
+    }
+
+    class ConcreteRepository
+    ConcreteRepository --|> RepositoryPrototype: <<implement>>
+}
+
+
+@enduml

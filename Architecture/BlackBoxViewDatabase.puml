@@ -15,8 +15,8 @@ Repository ..> ServiceLayer
 Repository -l- AbstractRepository
 
 
-interface GUI #lightsalmon
-GUI .u.> ServiceLayer
+interface API
+API .u.> ServiceLayer
 
 interface ServiceLayer #plum
 

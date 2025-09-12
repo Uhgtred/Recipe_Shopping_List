@@ -2,13 +2,11 @@
 hide empty members
 
 
-interface ItemListInterface #lightblue
 
 class ItemListBuilder #lightblue{
     + addRecipeUnit()
     + addInstructions()
     + addDescription()
-    + addDataBase()
     + build()
 }
 ItemListBuilder ..> Recipe: <<create>>
@@ -29,13 +27,6 @@ abstract class AbstractItem #lightblue{
 AbstractItem ..o AbstractItemList
 AbstractItem -- Unit
 
-class ItemListManager #lightblue
-ItemListManager .u.> AbstractItemList
-ItemListManager .u.> ItemListInterface
-
-interface ApplicationAPI #lightblue
-ApplicationAPI .r.> ItemListManager
-
 class ShoppingList #lightblue
 ShoppingList "0..*" --|> "1" AbstractItemList
 
@@ -48,30 +39,28 @@ class Recipe #lightblue {
     + setDescription()
 }
 Recipe "0..*" --|> "1" AbstractItemList
+Recipe -- Quantity
 
 abstract class AbstractItemList #lightblue{
-   - name
+   - name: const str
    - itemQuantity: [item: Quantity]
-   - dataBaseName: str
+   - dataBaseName: const str
    + addItem()
    + removeItem()
    + getItems()
    + storeList()
    + changeList()
+   + getName()
 }
-AbstractItemList .l.> ItemListInterface
-AbstractItemList -- Quantity
 
 class ConcreteItem #lightblue
-'NonFoodItem "0..*"--o "1..*" ShoppingList
-ConcreteItem -u-|> AbstractItem
+ConcreteItem --|> AbstractItem
 
 class Quantity #lightblue{
     - unit: Unit
     - quantity: int
     + getUnit()
     + getQuantity()
-    + setQuantity()
 }
 
 class Unit #lightblue{

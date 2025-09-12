@@ -2,10 +2,11 @@
 
 component Application #lightblue
 
+
 database DataBase #lightgreen
 
+
 component Repository #khaki
-Repository .l.> Application: loads and saves state of
 Repository ..> DataBase: commits changes to
 
 
@@ -14,6 +15,10 @@ ServiceLayer ..> Application: controls
 ServiceLayer ..> Repository: controls
 
 
+interface API
+API ..> ServiceLayer
+
+
 component GUI #lightsalmon
-GUI ..> ServiceLayer
+GUI ..> API
 @enduml

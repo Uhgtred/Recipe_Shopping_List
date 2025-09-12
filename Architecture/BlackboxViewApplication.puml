@@ -2,59 +2,56 @@
 hide empty members
 
 
-class Database #lightgreen
+interface API
+API ...> ItemListService
 
-
-interface GUI #lightsalmon
-GUI ...> ItemListService
-
-
-interface ItemListInterface #lightblue
 
 class ItemListBuilder #lightblue
 ItemListBuilder ..> ConcreteItemList: <<create>>
 
 class ConcreteItemList #lightblue
-ConcreteItemList --|> AbstractItemList: <<implement>>
+ConcreteItemList -d-|> ItemListPrototype: <<implement>>
 
 class ItemBuilder #lightblue
-ItemBuilder ..> AbstractItem: <<create>>
+ItemBuilder ..> ConcreteItem: <<create>>
+
+class ConcreteItem #lightblue
+ConcreteItem --|> AbstractItem: <<implement>>
 
 abstract class AbstractItem #lightblue
-AbstractItem .l.o AbstractItemList
+AbstractItem "1..n" .l.o "0..n" ItemListPrototype
 AbstractItem -- Unit
 
-class Repository #khaki
-Repository ..> Database
-Repository ..> ConcreteItemList: <<store \n& load>>
+class Unit #lightblue
+
+interface Repository #khaki
 
 ' This will be two services actually:
 '   RecipeService
 '   ShoppingListService
+'   ItemService
 ' Since this would drastically reduce readability of the diagram those two services will both be
 ' presented by "ItemListService"
 class ItemListService #plum {
 }
-ItemListService ..> ItemListInterface
+ItemListService .l.> Repository
 ItemListService ..> ItemListBuilder
-ItemListService ..> Repository
 ItemListService ..> ItemBuilder
-note right of ItemListService: This will be two services: \nRecipeService & ShoppingListService \nSince this would drastically reduce readability of the diagram, \nthose two services will both be presented by: "ItemListService"
+ItemListService ..> ConcreteItemList
+ItemListService ..> ConcreteItem
 
-abstract class AbstractItemList #lightblue
-AbstractItemList .l.|> ItemListInterface
-AbstractItemList -- Quantity
+note right of ItemListService: This will be three services: \nRecipeService, ShoppingListService & ItemService \nSince this would drastically reduce readability of the diagram, \nthose two services will both be presented by: "ItemListService"
+
+abstract class ItemListPrototype #lightblue
+ItemListPrototype -- Quantity
 
 class Quantity #lightblue
-Quantity o.r. Unit
 
-class Unit #lightblue
 legend bottom right
 | **Color**         | **Layer**             |
 | <#lightgreen>     | Database layer        |
-| <#khaki>          | Repository layer      |
+| <#khaki>          | Repositories          |
 | <#lightblue>      | Application layer     |
-| <#lightsalmon>    | Presentation layer    |
 | <#plum>           | Service layer         |
 end legend
 @enduml
@@ -84,3 +81,8 @@ Contra:
 # Authentication:
 Firebender is going to be the choice for Authentication.
 
+# Services
+Each ConcreteList will need a dedicated service. This makes for less complicated Application-code.
+Downside with this is that each time a ConcreteItemList is being changed, created or deleted,
+the corresponding service also has to be changed, created or deleted.
+This leads to higher coupling but lower overall complexity.

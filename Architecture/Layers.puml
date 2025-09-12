@@ -18,5 +18,4 @@ Service_Layer --> Repository_Layer
 Service_Layer --> Application_Layer
 
 Repository_Layer --> Database_Layer
-Repository_Layer -r-> Application_Layer
 @enduml

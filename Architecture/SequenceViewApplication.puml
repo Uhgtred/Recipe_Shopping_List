@@ -1,0 +1,58 @@
+' Sequence Diagram of starting the application
+@startuml
+autonumber
+
+== Startup-sequence ==
+
+actor client
+client -> GUI: init
+activate GUI
+GUI -> Service: init
+activate Service
+Service -> Repository: getAllDatabaseSheets()
+activate Repository
+Repository -> Database
+activate Database
+Database --> Repository
+deactivate
+Repository --> Service: list[databaseSheet]
+deactivate
+Service --> GUI: list[databaseSheet]
+deactivate
+GUI --> client: visualization of all databaseSheet
+deactivate
+@enduml
+
+
+' Sequence Diagram of creating a new database-sheet
+@startuml
+autonumber
+
+== Service-Call: createShoppingList() ==
+
+Service -> ItemListBuilder : init(listName: str)
+activate ItemListBuilder
+ItemListBuilder -> ShoppingList: init(listName: str)
+activate ShoppingList
+ShoppingList --> ItemListBuilder: New instance ShoppingList
+deactivate
+ItemListBuilder --> Service
+Service -> ItemListBuilder: build()
+ItemListBuilder --> Service: New instance ShoppingList
+deactivate
+
+Service -> NewShoppingListInstance: getName()
+activate NewShoppingListInstance
+NewShoppingListInstance --> Service: listName: str
+deactivate
+
+Service -> Repository: createDatabaseSheet(sheetName, model)
+activate Repository
+Repository -> Database
+activate Database
+Database --> Repository
+deactivate
+Repository --> Service: databaseSheet
+deactivate
+@enduml
+
