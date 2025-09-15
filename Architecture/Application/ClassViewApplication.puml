@@ -73,3 +73,8 @@ legend bottom right
 | <#lightblue>      | Application layer     |
 end legend
 @enduml
+
+# Decisions:
+1. Explicit decision to keep the Class Unit, since the application (core functionality)should be
+    free of dependencies. Use-case for a dedicated Unit class may for example be the conversion to
+    another unit later in development.
