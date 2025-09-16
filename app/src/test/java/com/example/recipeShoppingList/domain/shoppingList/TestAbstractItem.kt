@@ -1,6 +1,8 @@
 package com.example.recipeShoppingList.domain.shoppingList
 
+import com.example.recipeShoppingList.domain.shoppingList.fakes.FakeItemOne
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
 import org.junit.Test
 
 class TestAbstractItem {
