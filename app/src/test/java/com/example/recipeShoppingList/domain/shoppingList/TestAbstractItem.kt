@@ -1,62 +1,42 @@
 package com.example.recipeShoppingList.domain.shoppingList
 
-import com.example.recipeShoppingList.AbstractItem
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class TestAbstractItem {
+    var testItem = FakeItemOne()
+    val itemNameOne = "TestItemOne"
+    val itemUnitOne = "TestUnitOne"
+
     @Test
     fun `test retrieve Name of the item`() {
-        val itemName: String = "testItemName"
-        val item: TestItem = TestItem(itemName, "kg")
-        val collectedItemName: String = item.publicItemName
-        assertEquals(collectedItemName, itemName)
+        assertEquals(itemNameOne, testItem.itemName)
     }
 
     @Test
     fun `test retrieve Unit of the item`() {
-        val itemName: String = "testItemName"
-        val unit: String = "kg"
-        val item: TestItem = TestItem(itemName, unit)
-        assertEquals(item.publicItemUnit, unit)
+        assertEquals(itemUnitOne, testItem.itemUnit)
     }
 
     @Test
     fun `test change name of item`() {
-        val itemName: String = "testItemName"
-        val unit: String = "kg"
-        val item: TestItem = TestItem(itemName, unit)
         // check if the first name has been applied succesfully
-        assertEquals(itemName, item.publicItemName)
+        assertEquals(itemNameOne, testItem.itemName)
         val newItemName: String = "newTestItemName"
-        item.changeName(newItemName)
+        testItem.itemName = newItemName
         // check if the name has been changed successfully
-        assertEquals(newItemName, item.publicItemName)
+        assertEquals(newItemName, testItem.itemName)
+        assertNotEquals(newItemName, itemNameOne)
     }
 
     @Test
     fun `test change unit of item`() {
-        val itemName: String = "testItemName"
-        val itemUnit: String = "kg"
-        val item: TestItem = TestItem(itemName, itemUnit)
         // check if the first unit has been applied succesfully
-        assertEquals(itemUnit, item.publicItemUnit)
+        assertEquals(itemUnitOne, testItem.itemUnit)
         val newItemUnit: String = "km"
-        item.changeUnit(newItemUnit)
+        testItem.itemUnit = newItemUnit
         // check if the unit has been changed successfully
-        assertEquals(newItemUnit, item.publicItemUnit)
+        assertEquals(newItemUnit, testItem.itemUnit)
+        assertNotEquals(newItemUnit, itemUnitOne)
     }
-}
-
-class TestItem(
-    override var itemName: String,
-    override var itemUnit: String,
-) : AbstractItem() {
-    /*
-    This class is faking a ConcreteItem, deriving from AbstractItem for test-purposes only!
-     */
-    public val publicItemName: String
-        get() = itemName
-    public val publicItemUnit: String
-        get() = itemUnit
 }
