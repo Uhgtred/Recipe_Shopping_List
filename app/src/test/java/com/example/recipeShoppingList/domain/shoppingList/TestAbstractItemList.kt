@@ -8,12 +8,17 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
 
-class TestAbstractShoppingListUnit {
+class TestAbstractItemList {
     val testListOne: AbstractItemList = FakeItemListOne()
     val testListTwo: AbstractItemList = FakeItemListTwo()
     val shoppingListItemsOne: MutableList<AbstractItem> = testListOne.items
     val itemNames: MutableList<String> = mutableListOf<String>("TestItemOne", "TestItemTwo")
     val itemNamesFromFakeListOne = shoppingListItemsOne.map { it.itemName }
+
+    @Test
+    fun `List name can be retrieved from the list instance`() {
+        assertEquals(testListOne.itemListName, "FakeItemListOne")
+    }
 
     @Test
     fun `getListItems should return all items that are available in the shopping-list`() {
