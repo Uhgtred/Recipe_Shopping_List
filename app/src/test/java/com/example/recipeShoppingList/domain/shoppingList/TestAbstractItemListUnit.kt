@@ -8,7 +8,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
 
-class AbstractShoppingListUnitTest {
+class TestAbstractShoppingListUnit {
     @Test
     fun `getListItems should return all items that are available in the shopping-list`() {
         val testListOne: AbstractItemList = FakeItemListOne()

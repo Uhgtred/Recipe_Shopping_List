@@ -14,7 +14,7 @@ class FakeItemListOne() : AbstractItemList() {
     override var items: MutableList<AbstractItem> = mutableListOf(FakeItemOne(), FakeItemTwo())
 }
 
-class FakeItemListTwo(): AbstractItemList(){
+class FakeItemListTwo() : AbstractItemList() {
     /*
     This class is needed for making another instance of a fakelist, which differs from the first
     list. This is needed for making sure that lists are not the same after instancing multiple lists.

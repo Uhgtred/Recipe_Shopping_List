@@ -7,7 +7,7 @@ class FakeItemOne(): AbstractItem() {
     override var itemUnit: String = "TestUnitOne"
 }
 
-class FakeItemTwo(): AbstractItem(){
+class FakeItemTwo(): AbstractItem() {
     override var itemName: String = "TestItemTwo"
     override var itemUnit: String = "TestUnitTwo"
 }
@@ -15,7 +15,6 @@ class FakeItemTwo(): AbstractItem(){
 class FakeItemThree(): AbstractItem() {
     override var itemName: String = "TestItemThree"
     override var itemUnit: String = "TestUnitThree"
-
 }
 
 class FakeItemFour(): AbstractItem() {
