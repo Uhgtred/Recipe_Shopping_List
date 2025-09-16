@@ -14,17 +14,17 @@ class TestAbstractShoppingListUnit {
         val testListOne: AbstractItemList = FakeItemListOne()
         val shoppinglistItems: MutableList<AbstractItem> = testListOne.items
         val itemNames = mutableListOf<String>("TestItemOne", "TestItemTwo")
-        val itemNamesFromFakeList =  shoppinglistItems.map { it.itemName }
+        val itemNamesFromFakeList = shoppinglistItems.map { it.itemName }
         assertEquals(itemNames, itemNamesFromFakeList)
     }
 
     @Test
-    fun `getListItems of two instances of lists should return different results` () {
+    fun `getListItems of two instances of lists should return different results`() {
         val testListOne: AbstractItemList = FakeItemListOne()
         val testListTwo: AbstractItemList = FakeItemListTwo()
         val shoppinglistItemsOne: MutableList<AbstractItem> = testListOne.items
         val itemNames = mutableListOf<String>("TestItemOne", "TestItemTwo")
-        val itemNamesFromFakeListOne =  shoppinglistItemsOne.map { it.itemName }
+        val itemNamesFromFakeListOne = shoppinglistItemsOne.map { it.itemName }
         assertEquals(itemNames, itemNamesFromFakeListOne)
         val shoppinglistItemsTwo: MutableList<AbstractItem> = testListTwo.items
         val itemNamesTwo = mutableListOf<String>("TestItemThree", "TestItemFour")
