@@ -9,27 +9,32 @@ import org.junit.Assert.assertNotEquals
 import org.junit.Test
 
 class TestAbstractShoppingListUnit {
+    val testListOne: AbstractItemList = FakeItemListOne()
+    val testListTwo: AbstractItemList = FakeItemListTwo()
+    val shoppingListItemsOne: MutableList<AbstractItem> = testListOne.items
+    val itemNames: MutableList<String> = mutableListOf<String>("TestItemOne", "TestItemTwo")
+    val itemNamesFromFakeListOne = shoppingListItemsOne.map { it.itemName }
+
     @Test
     fun `getListItems should return all items that are available in the shopping-list`() {
-        val testListOne: AbstractItemList = FakeItemListOne()
-        val shoppinglistItems: MutableList<AbstractItem> = testListOne.items
-        val itemNames = mutableListOf<String>("TestItemOne", "TestItemTwo")
-        val itemNamesFromFakeList = shoppinglistItems.map { it.itemName }
-        assertEquals(itemNames, itemNamesFromFakeList)
+        // Checking if the names read from the list match the names created in the beginning of the
+        // Test-class.
+        assertEquals(itemNames, itemNamesFromFakeListOne)
     }
 
     @Test
     fun `getListItems of two instances of lists should return different results`() {
-        val testListOne: AbstractItemList = FakeItemListOne()
-        val testListTwo: AbstractItemList = FakeItemListTwo()
-        val shoppinglistItemsOne: MutableList<AbstractItem> = testListOne.items
-        val itemNames = mutableListOf<String>("TestItemOne", "TestItemTwo")
-        val itemNamesFromFakeListOne = shoppinglistItemsOne.map { it.itemName }
+        // Checking if the names read from the list match the names created in the beginning of the
+        // Test-class.
         assertEquals(itemNames, itemNamesFromFakeListOne)
+        // Creating a list with items from another fake-list.
         val shoppinglistItemsTwo: MutableList<AbstractItem> = testListTwo.items
         val itemNamesTwo = mutableListOf<String>("TestItemThree", "TestItemFour")
+        // Extracting the names of items in the list that has been created beforhand.
         val itemNamesFromFakeItemListTwo = shoppinglistItemsTwo.map { it.itemName }
+        // Check whether the names in the list match the expected names.
         assertEquals(itemNamesTwo, itemNamesFromFakeItemListTwo)
+        // Check whether the names in list one differ from the names in list two.
         assertNotEquals(itemNamesFromFakeItemListTwo, itemNamesFromFakeListOne)
     }
 }
