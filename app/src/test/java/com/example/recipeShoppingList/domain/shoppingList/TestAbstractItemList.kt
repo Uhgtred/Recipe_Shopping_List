@@ -33,10 +33,10 @@ class TestAbstractItemList {
         // Test-class.
         assertEquals(itemNames, itemNamesFromFakeListOne)
         // Creating a list with items from another fake-list.
-        val shoppinglistItemsTwo: MutableList<AbstractItem> = testListTwo.items
+        val shoppingListItemsTwo: MutableList<AbstractItem> = testListTwo.items
         val itemNamesTwo = mutableListOf<String>("TestItemThree", "TestItemFour")
         // Extracting the names of items in the list that has been created beforhand.
-        val itemNamesFromFakeItemListTwo = shoppinglistItemsTwo.map { it.itemName }
+        val itemNamesFromFakeItemListTwo = shoppingListItemsTwo.map { it.itemName }
         // Check whether the names in the list match the expected names.
         assertEquals(itemNamesTwo, itemNamesFromFakeItemListTwo)
         // Check whether the names in list one differ from the names in list two.
