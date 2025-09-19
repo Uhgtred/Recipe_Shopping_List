@@ -12,33 +12,37 @@ class TestAbstractItem {
 
     @Test
     fun `test retrieve Name of the item`() {
-        assertEquals(itemNameOne, testItem.itemName)
+        testItem.setItemName(itemNameOne)
+        assertEquals(itemNameOne, testItem.getItemName())
     }
 
     @Test
     fun `test retrieve Unit of the item`() {
-        assertEquals(itemUnitOne, testItem.itemUnit)
+        testItem.setItemUnit(itemUnitOne)
+        assertEquals(itemUnitOne, testItem.getItemUnit())
     }
 
     @Test
     fun `test change name of item`() {
         // check if the first name has been applied succesfully
-        assertEquals(itemNameOne, testItem.itemName)
+        testItem.setItemName(itemNameOne)
+        assertEquals(itemNameOne, testItem.getItemName())
         val newItemName: String = "newTestItemName"
-        testItem.itemName = newItemName
+        testItem.setItemName(newItemName)
         // check if the name has been changed successfully
-        assertEquals(newItemName, testItem.itemName)
+        assertEquals(newItemName, testItem.getItemName())
         assertNotEquals(newItemName, itemNameOne)
     }
 
     @Test
     fun `test change unit of item`() {
         // check if the first unit has been applied succesfully
-        assertEquals(itemUnitOne, testItem.itemUnit)
+        testItem.setItemUnit(itemUnitOne)
+        assertEquals(itemUnitOne, testItem.getItemUnit())
         val newItemUnit: String = "km"
-        testItem.itemUnit = newItemUnit
+        testItem.setItemUnit(newItemUnit)
         // check if the unit has been changed successfully
-        assertEquals(newItemUnit, testItem.itemUnit)
+        assertEquals(newItemUnit, testItem.getItemUnit())
         assertNotEquals(newItemUnit, itemUnitOne)
     }
 }

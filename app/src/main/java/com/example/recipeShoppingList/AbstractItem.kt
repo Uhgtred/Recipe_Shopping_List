@@ -1,6 +1,22 @@
 package com.example.recipeShoppingList
 
 abstract class AbstractItem {
-    abstract var itemName: String
-    abstract var itemUnit: String
+    private var name: String = ""
+    private var unit: String = ""
+
+    fun setItemName(name: String){
+        this.name = name
+    }
+
+    fun getItemName(): String {
+        return this.name
+    }
+
+    fun setItemUnit(unit: String){
+        this.unit = unit
+    }
+
+    fun getItemUnit(): String {
+        return this.unit
+    }
 }

@@ -9,6 +9,18 @@ API ...> ItemListService
 class ItemListBuilder #lightblue
 ItemListBuilder ..> ConcreteItemList: <<create>>
 
+class ItemListController #lightblue
+ItemListController ..> ConcreteItemList
+ItemListController ..> ConcreteItem
+ItemListController ..> ItemListBuilder
+ItemListController ..> ItemBuilder
+
+'class RecipeController
+'RecipeController ..> ConcreteItemList
+'RecipeController ..> ConcreteItem
+'RecipeController ..> ItemListBuilder
+'RecipeController ..> ItemBuilder
+
 class ConcreteItemList #lightblue
 ConcreteItemList -d-|> ItemListPrototype: <<implement>>
 
@@ -26,21 +38,13 @@ class Unit #lightblue
 
 interface Repository #khaki
 
-' This will be two services actually:
-'   RecipeService
-'   ShoppingListService
-'   ItemService
-' Since this would drastically reduce readability of the diagram those two services will both be
-' presented by "ItemListService"
 class ItemListService #plum {
 }
 ItemListService .l.> Repository
-ItemListService ..> ItemListBuilder
-ItemListService ..> ItemBuilder
-ItemListService ..> ConcreteItemList
-ItemListService ..> ConcreteItem
+ItemListService ..> ItemListController
+'ItemListService ..> RecipeController
 
-note right of ItemListService: This will be three services: \nRecipeService, ShoppingListService & ItemService \nSince this would drastically reduce readability of the diagram, \nthose two services will both be presented by: "ItemListService"
+note right of ItemListService: This will be two services: \nRecipeService, ShoppingListService \nSince this would drastically reduce readability of the diagram, \nthose two services will both be presented by: "ItemListService"
 
 abstract class ItemListPrototype #lightblue
 ItemListPrototype -- Quantity

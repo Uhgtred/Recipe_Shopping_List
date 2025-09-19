@@ -19,13 +19,12 @@ class ItemBuilder #lightblue{
 }
 ItemBuilder ..> ConcreteItem: <<create>>
 
-abstract class AbstractItem #lightblue{
+interface InterfaceItem #lightblue{
    - unit
    - name
-   + changeItem()
 }
-AbstractItem ..o AbstractItemList
-AbstractItem -- Unit
+InterfaceItem ..o AbstractItemList
+InterfaceItem -- Unit
 
 class ShoppingList #lightblue
 ShoppingList "0..*" --|> "1" AbstractItemList
@@ -54,7 +53,7 @@ abstract class AbstractItemList #lightblue{
 }
 
 class ConcreteItem #lightblue
-ConcreteItem --|> AbstractItem
+ConcreteItem --|> InterfaceItem
 
 class Quantity #lightblue{
     - unit: Unit
@@ -65,7 +64,6 @@ class Quantity #lightblue{
 
 class Unit #lightblue{
     - unit: str
-    + getUnit()
 }
 
 legend bottom right

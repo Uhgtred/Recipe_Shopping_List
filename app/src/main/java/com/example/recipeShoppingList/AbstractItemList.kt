@@ -1,6 +1,26 @@
 package com.example.recipeShoppingList
 
 abstract class AbstractItemList {
-    abstract var itemListName: String
-    abstract var items: MutableList<AbstractItem>
+    private var itemListName: String = ""
+    private var items: MutableList<AbstractItem> = mutableListOf()
+
+    fun addItem(item: AbstractItem) {
+        items.add(item)
+    }
+
+    fun removeItem(item: AbstractItem) {
+        items.remove(item)
+    }
+
+    fun getAllItems(): MutableList<AbstractItem> {
+        return items
+    }
+
+    fun getName(): String {
+        return itemListName
+    }
+
+    fun setName(name: String) {
+        itemListName = name
+    }
 }
