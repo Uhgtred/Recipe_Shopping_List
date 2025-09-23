@@ -1,9 +1,9 @@
 package com.example.recipeShoppingList.domain.shoppingList
 
-import com.example.recipeShoppingList.Item
-import com.example.recipeShoppingList.AbstractItemList
-import com.example.recipeShoppingList.domain.shoppingList.fakes.FakeItemListOne
-import com.example.recipeShoppingList.domain.shoppingList.fakes.FakeItemListTwo
+import com.example.recipeShoppingList.application.Item
+import com.example.recipeShoppingList.application.AbstractItemList
+import com.example.recipeShoppingList.domain.shoppingList.application.fakes.FakeItemListOne
+import com.example.recipeShoppingList.domain.shoppingList.application.fakes.FakeItemListTwo
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Test

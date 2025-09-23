@@ -1,4 +1,4 @@
-package com.example.recipeShoppingList
+package com.example.recipeShoppingList.application
 
 class ItemListBuilder {
     private val concreteItemImplementation: AbstractItemList

@@ -1,4 +1,4 @@
-package com.example.recipeShoppingList
+package com.example.recipeShoppingList.application
 
 abstract class AbstractItemList {
     protected var itemListName: String = ""

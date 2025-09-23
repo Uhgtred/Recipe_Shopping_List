@@ -1,4 +1,4 @@
-package com.example.recipeShoppingList
+package com.example.recipeShoppingList.application
 
 class Item {
     private var name: String = ""

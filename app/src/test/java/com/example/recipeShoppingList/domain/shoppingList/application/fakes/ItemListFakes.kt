@@ -1,6 +1,6 @@
-package com.example.recipeShoppingList.domain.shoppingList.fakes
+package com.example.recipeShoppingList.domain.shoppingList.application.fakes
 
-import com.example.recipeShoppingList.AbstractItemList
+import com.example.recipeShoppingList.application.AbstractItemList
 
 class FakeItemListOne() : AbstractItemList() {
     /*
