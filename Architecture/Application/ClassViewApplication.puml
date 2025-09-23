@@ -12,20 +12,6 @@ class ItemListBuilder #lightblue{
 ItemListBuilder ..> Recipe: <<create>>
 ItemListBuilder ..> ShoppingList: <<create>>
 
-class ItemBuilder #lightblue{
-   + addUnit()
-   + addName()
-   + build()
-}
-ItemBuilder ..> ConcreteItem: <<create>>
-
-interface InterfaceItem #lightblue{
-   - unit
-   - name
-}
-InterfaceItem ..o AbstractItemList
-InterfaceItem -- Unit
-
 class ShoppingList #lightblue
 ShoppingList "0..*" --|> "1" AbstractItemList
 
@@ -51,19 +37,15 @@ abstract class AbstractItemList #lightblue{
    + changeList()
    + getName()
 }
+AbstractItemList o-- Item
 
-class ConcreteItem #lightblue
-ConcreteItem --|> InterfaceItem
+class Item #lightblue
 
 class Quantity #lightblue{
     - unit: Unit
     - quantity: int
     + getUnit()
     + getQuantity()
-}
-
-class Unit #lightblue{
-    - unit: str
 }
 
 legend bottom right
@@ -73,6 +55,9 @@ end legend
 @enduml
 
 # Decisions:
-1. Explicit decision to keep the Class Unit, since the application (core functionality)should be
-    free of dependencies. Use-case for a dedicated Unit class may for example be the conversion to
-    another unit later in development.
+    - Unit is not going to be an explicit class anymore. It adds a lot of complexity while having
+    very few advantages.
+    - Whether quantity stays an explicit class is yet to decide. It decouples from using undefined
+    dictionaries at least. So it kind of makes sense. The disadvantages are not that high either.
+    So it may stay for the moment. If there are any complications with it in implementation, it will
+    probably be get erased.

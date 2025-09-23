@@ -12,7 +12,8 @@ android {
 
     defaultConfig {
         applicationId = "com.example.recipeShoppingList"
-        minSdk = 21
+        // usin version 24, because features of the new API are needed.
+        minSdk = 24
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"

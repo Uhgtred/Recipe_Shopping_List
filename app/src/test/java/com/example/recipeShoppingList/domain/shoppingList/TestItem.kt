@@ -1,19 +1,22 @@
 package com.example.recipeShoppingList.domain.shoppingList
 
-import com.example.recipeShoppingList.domain.shoppingList.fakes.FakeItemOne
+import com.example.recipeShoppingList.Item
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
 
-class TestAbstractItem {
-    var testItem = FakeItemOne()
+class TestItem {
+    var testItem = Item()
     val itemNameOne = "TestItemOne"
     val itemUnitOne = "TestUnitOne"
 
     @Test
     fun `test retrieve Name of the item`() {
         testItem.setItemName(itemNameOne)
-        assertEquals(itemNameOne, testItem.getItemName())
+        assertEquals(
+            itemNameOne.trim().lowercase().replaceFirstChar { it.uppercaseChar() },
+            testItem.getItemName()
+        )
     }
 
     @Test
@@ -24,19 +27,25 @@ class TestAbstractItem {
 
     @Test
     fun `test change name of item`() {
-        // check if the first name has been applied succesfully
+        // check if the first name has been applied successfully
         testItem.setItemName(itemNameOne)
-        assertEquals(itemNameOne, testItem.getItemName())
+        assertEquals(
+            itemNameOne.trim().lowercase().replaceFirstChar { it.uppercaseChar() },
+            testItem.getItemName()
+        )
         val newItemName: String = "newTestItemName"
         testItem.setItemName(newItemName)
         // check if the name has been changed successfully
-        assertEquals(newItemName, testItem.getItemName())
+        assertEquals(
+            newItemName.trim().lowercase().replaceFirstChar { it.uppercaseChar() },
+            testItem.getItemName()
+        )
         assertNotEquals(newItemName, itemNameOne)
     }
 
     @Test
     fun `test change unit of item`() {
-        // check if the first unit has been applied succesfully
+        // check if the first unit has been applied successfully
         testItem.setItemUnit(itemUnitOne)
         assertEquals(itemUnitOne, testItem.getItemUnit())
         val newItemUnit: String = "km"

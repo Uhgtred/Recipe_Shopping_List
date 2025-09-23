@@ -2,6 +2,9 @@ package com.example.recipeShoppingList.domain.shoppingList
 
 import com.example.recipeShoppingList.ItemListBuilder
 import com.example.recipeShoppingList.shoppingList.ShoppingList
+import junit.framework.TestCase.assertEquals
+import org.hamcrest.CoreMatchers.instanceOf
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 
 class TestItemListBuilder {
@@ -9,6 +12,13 @@ class TestItemListBuilder {
 
     @Test
     fun `test if itemlistbuilder can create a list`() {
-        itemListBuilder.build()
+        val shoppingList = itemListBuilder.build()
+        assertThat(shoppingList, instanceOf(ShoppingList::class.java))
+    }
+
+    @Test
+    fun `test if itemlistbuilder can add a name to an object`() {
+        val shoppingList =  itemListBuilder.addName("TestName").build()
+        assertEquals("TestName", shoppingList.getListName())
     }
 }

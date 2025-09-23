@@ -7,11 +7,12 @@ class ItemListBuilder {
         this.concreteItemImplementation = concreteItemImplementation
     }
 
-    fun addName(name: String){
-
+    fun addName(name: String): ItemListBuilder {
+        this.concreteItemImplementation.setListName(name)
+        return this
     }
 
-    fun build() {
-        return
+    fun build(): AbstractItemList {
+        return this.concreteItemImplementation
     }
 }

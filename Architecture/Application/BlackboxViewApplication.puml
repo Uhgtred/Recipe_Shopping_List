@@ -3,53 +3,40 @@ hide empty members
 
 
 interface API
-API ...> ItemListService
-
+API ...> ShoppingListService
+API ...> RecipeService
 
 class ItemListBuilder #lightblue
 ItemListBuilder ..> ConcreteItemList: <<create>>
 
-class ItemListController #lightblue
-ItemListController ..> ConcreteItemList
-ItemListController ..> ConcreteItem
-ItemListController ..> ItemListBuilder
-ItemListController ..> ItemBuilder
+class ShoppingListController #lightblue
+ShoppingListController ..> ItemListBuilder
+ShoppingListController ..> ConcreteItemList: <<manage>>
 
-'class RecipeController
-'RecipeController ..> ConcreteItemList
-'RecipeController ..> ConcreteItem
-'RecipeController ..> ItemListBuilder
-'RecipeController ..> ItemBuilder
+
+class RecipeController #lightblue
+RecipeController ..> ConcreteItemList
+RecipeController ..> ItemListBuilder
 
 class ConcreteItemList #lightblue
-ConcreteItemList -d-|> ItemListPrototype: <<implement>>
+ConcreteItemList o-- Item
 
-class ItemBuilder #lightblue
-ItemBuilder ..> ConcreteItem: <<create>>
-
-class ConcreteItem #lightblue
-ConcreteItem --|> AbstractItem: <<implement>>
-
-abstract class AbstractItem #lightblue
-AbstractItem "1..n" .l.o "0..n" ItemListPrototype
-AbstractItem -- Unit
-
-class Unit #lightblue
+class Item #lightblue
 
 interface Repository #khaki
 
-class ItemListService #plum {
+class ShoppingListService #plum {
 }
-ItemListService .l.> Repository
-ItemListService ..> ItemListController
-'ItemListService ..> RecipeController
+ShoppingListService .u.> Repository
+ShoppingListService ..> ShoppingListController
+'note right of ShoppingListService: This will be two services: \nRecipeService, ShoppingListService \nSince this would drastically reduce readability of the diagram, \nthose two services will both be presented by: "ItemListService"
 
-note right of ItemListService: This will be two services: \nRecipeService, ShoppingListService \nSince this would drastically reduce readability of the diagram, \nthose two services will both be presented by: "ItemListService"
+class RecipeService #plum
+RecipeService ..> RecipeController
+RecipeService .u.> Repository
 
-abstract class ItemListPrototype #lightblue
-ItemListPrototype -- Quantity
-
-class Quantity #lightblue
+'
+'class Quantity #lightblue
 
 legend bottom right
 | **Color**         | **Layer**             |
