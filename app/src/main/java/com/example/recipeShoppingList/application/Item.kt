@@ -1,8 +1,11 @@
 package com.example.recipeShoppingList.application
 
-class Item {
-    private var name: String = ""
+data class Item(var name: String) {
     private var unit: String? = null
+
+    init {
+        setItemName(name)
+    }
 
     fun setItemName(itemName: String){
         // unifying the name of the item

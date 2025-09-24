@@ -6,37 +6,49 @@ interface API
 API ...> ShoppingListService
 API ...> RecipeService
 
-class ItemListBuilder #lightblue
-ItemListBuilder ..> ConcreteItemList: <<create>>
 
 class ShoppingListController #lightblue
-ShoppingListController ..> ItemListBuilder
-ShoppingListController ..> ConcreteItemList: <<manage>>
+ShoppingListController .d.> ShoppingList: <<manage>>
+ShoppingListController .r.> ItemFactory
 
+interface InterfaceItem #lightblue
+
+abstract class AbstractItemList #lightblue
+AbstractItemList o-u- Item
+AbstractItemList .u.> InterfaceItem
+
+class Quantity #lightblue
+Quantity -o Item
+
+enum Unit #lightblue
+Unit -lo Quantity
 
 class RecipeController #lightblue
-RecipeController ..> ConcreteItemList
-RecipeController ..> ItemListBuilder
+RecipeController .d.> Recipe: <<manage>>
+RecipeController .l.> ItemFactory
 
-class ConcreteItemList #lightblue
-ConcreteItemList o-- Item
+class Recipe #lightblue
+Recipe -l-|> AbstractItemList
+
+class ShoppingList #lightblue
+ShoppingList --|> AbstractItemList
+
+class ItemFactory #lightblue
+ItemFactory ..> Item: <<create>>
 
 class Item #lightblue
+Item --|> InterfaceItem
 
 interface Repository #khaki
 
-class ShoppingListService #plum {
-}
-ShoppingListService .u.> Repository
+class ShoppingListService #plum
+ShoppingListService .r.> Repository
 ShoppingListService ..> ShoppingListController
-'note right of ShoppingListService: This will be two services: \nRecipeService, ShoppingListService \nSince this would drastically reduce readability of the diagram, \nthose two services will both be presented by: "ItemListService"
 
 class RecipeService #plum
 RecipeService ..> RecipeController
-RecipeService .u.> Repository
+RecipeService .l.> Repository
 
-'
-'class Quantity #lightblue
 
 legend bottom right
 | **Color**         | **Layer**             |
@@ -46,6 +58,35 @@ legend bottom right
 | <#plum>           | Service layer         |
 end legend
 @enduml
+
+# API
+The API is going to be the central element that talks to all the services and acts as the interface
+to the outer world.
+
+# Services
+The services act as a decoupling layer between the API and the application code. Services should be
+light weight and act as a kind of main-program for each functionality.
+Service-architecture is a lot of overhead but adds a lot of decoupling and insures that the
+application-code can be easily maintained without breaking the infrastructure around it.
+
+# Repository
+The repository is the central interface for accessing storage of any kind. It is being fed by the
+services and provides decoupling between the databases (or other storage-techniques) and the
+application.
+
+# Listcontrollers
+ShoppingListController and RecipeController will both manage the lists that derive from
+AbstractItemList. They will create new lists, remember existing lists and also provide access to
+every list. This is also needed, so the services do not have to remember which lists are existing.
+That way the services are stateless and only act as a trigger for the requests of the api.
+
+# ItemFactory
+The itemfactory produces items for the controllers. It decouples the instantiation of an item from
+the Controller.
+
+
+
+
 
 # Decisions
 Language and Framework:
@@ -74,6 +115,6 @@ Firebender is going to be the choice for Authentication.
 
 # Services
 Each ConcreteList will need a dedicated service. This makes for less complicated Application-code.
-Downside with this is that each time a ConcreteItemList is being changed, created or deleted,
+Downside with this is that each time a ShoppingList is being changed, created or deleted,
 the corresponding service also has to be changed, created or deleted.
 This leads to higher coupling but lower overall complexity.

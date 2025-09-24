@@ -40,6 +40,9 @@ abstract class AbstractItemList #lightblue{
 AbstractItemList o-- Item
 
 class Item #lightblue
+Item --|> InterfaceItem
+
+interface InterfaceItem #lightblue
 
 class Quantity #lightblue{
     - unit: Unit
