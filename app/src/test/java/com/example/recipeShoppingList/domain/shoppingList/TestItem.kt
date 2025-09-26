@@ -1,21 +1,22 @@
 package com.example.recipeShoppingList.domain.shoppingList
 
-import com.example.recipeShoppingList.application.Item
+import com.example.recipeShoppingList.application.items.Item
+import com.example.recipeShoppingList.application.items.ItemFactory
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
 
 class TestItem {
-    var testItem = Item()
     val itemNameOne = "TestItemOne"
     val itemUnitOne = "TestUnitOne"
+    var testItem = ItemFactory.createShoppingListItem(itemUnitOne)
 
     @Test
     fun `test retrieve Name of the item`() {
         testItem.setItemName(itemNameOne)
         assertEquals(
             itemNameOne.trim().lowercase().replaceFirstChar { it.uppercaseChar() },
-            testItem.getItemName()
+            testItem.getItemName(),
         )
     }
 
@@ -31,14 +32,14 @@ class TestItem {
         testItem.setItemName(itemNameOne)
         assertEquals(
             itemNameOne.trim().lowercase().replaceFirstChar { it.uppercaseChar() },
-            testItem.getItemName()
+            testItem.getItemName(),
         )
         val newItemName: String = "newTestItemName"
         testItem.setItemName(newItemName)
         // check if the name has been changed successfully
         assertEquals(
             newItemName.trim().lowercase().replaceFirstChar { it.uppercaseChar() },
-            testItem.getItemName()
+            testItem.getItemName(),
         )
         assertNotEquals(newItemName, itemNameOne)
     }

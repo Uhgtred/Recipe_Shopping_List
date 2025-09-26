@@ -1,7 +1,8 @@
 package com.example.recipeShoppingList.domain.shoppingList
 
-import com.example.recipeShoppingList.application.Item
 import com.example.recipeShoppingList.application.AbstractItemList
+import com.example.recipeShoppingList.application.items.Item
+import com.example.recipeShoppingList.application.items.ItemFactory
 import com.example.recipeShoppingList.domain.shoppingList.application.fakes.FakeItemListOne
 import com.example.recipeShoppingList.domain.shoppingList.application.fakes.FakeItemListTwo
 import org.junit.Assert.assertEquals
@@ -11,8 +12,8 @@ import org.junit.Test
 class TestAbstractItemList {
     val testListOne: AbstractItemList = FakeItemListOne()
     val testListTwo: AbstractItemList = FakeItemListTwo()
-    var fakeItemOne = Item()
-    val fakeItemTwo = Item()
+    var fakeItemOne = ItemFactory.createShoppingListItem("FakeItemOne")
+    val fakeItemTwo = ItemFactory.createShoppingListItem("FakeItemTwo")
 
     init {
         fakeItemOne.setItemName("FakeItemOne")
@@ -20,10 +21,12 @@ class TestAbstractItemList {
         fakeItemTwo.setItemName("FakeItemTwo")
         fakeItemTwo.setItemUnit("FakeItemUnitTwo")
     }
-    val itemListOne = mutableListOf<Item>(
-        fakeItemOne,
-        fakeItemTwo
-    )
+
+    val itemListOne =
+        mutableListOf<Item>(
+            fakeItemOne,
+            fakeItemTwo,
+        )
 
     @Test
     fun `test if possible to add and item to list and get all items from list`() {
@@ -41,7 +44,7 @@ class TestAbstractItemList {
         testListOne.setListName(name)
         assertEquals(
             testListOne.getListName(),
-            name.trim().lowercase().replaceFirstChar { it.uppercaseChar() }
+            name.trim().lowercase().replaceFirstChar { it.uppercaseChar() },
         )
     }
 
@@ -49,7 +52,7 @@ class TestAbstractItemList {
     fun `test if item can be removed from list`() {
         testListOne.addItem(fakeItemOne)
         var itemsFromList = testListOne.getAllItems()
-        assertEquals(itemsFromList[0],fakeItemOne)
+        assertEquals(itemsFromList[0], fakeItemOne)
         assertEquals(itemsFromList.size, 1)
         testListOne.removeItem(fakeItemOne)
         itemsFromList = testListOne.getAllItems()
@@ -63,12 +66,12 @@ class TestAbstractItemList {
         val itemsFromListOne = testListOne.getAllItems()
         assertEquals(
             itemsFromListOne[0],
-            fakeItemOne
+            fakeItemOne,
         )
         val itemFromListTwo = testListTwo.getAllItems()
         assertEquals(
             itemFromListTwo[0],
-            fakeItemTwo
+            fakeItemTwo,
         )
         assertEquals(itemsFromListOne.size, 1)
         assertEquals(itemFromListTwo.size, 1)

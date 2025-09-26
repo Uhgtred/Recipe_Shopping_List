@@ -1,0 +1,84 @@
+@startuml
+hide empty members
+
+
+
+interface InterfaceListController #lightblue {
+    + getAllListItems(listName: String)
+    + getAllLists()
+    + addItem(itemName: String)
+    + removeItem(itemName: String)
+}
+' -------------------------------------------
+class ShoppingListController #lightblue {
+    - shoppingLists: list[ShoppingList]
+    + toggleItemBought(itemName: String)
+}
+ShoppingListController ..> ShoppingList: <<manage>>
+ShoppingListController ..> ItemFactory
+ShoppingListController -u-|> InterfaceListController
+ShoppingListController ..> ItemListFactory
+
+interface InterfaceItem #lightblue {
+    + setItemName(itemName: String)
+    + getItemName()
+}
+
+interface InterfaceQuantity #lightblue {
+    + getItemQuantity()
+    + setItemQuantity(quantity: int, unit: Unit?)
+    + getItemUnit()
+    + setItemUnit(unit: Unit)
+}
+
+abstract class AbstractItemList #lightblue {
+    - itemListName: String
+    - items: list[Item]
+    + addItem(Item)
+    + removeItem(Item)
+    + getAllListItems()
+    + getListName()
+    + setListName(listName: String)
+}
+AbstractItemList o-r- Item
+AbstractItemList ..> InterfaceItem
+
+class ItemListFactory #lightblue{
+    + createShoppingList(listName: String)
+    + createRecipe(listName: String)
+}
+ItemListFactory --> ShoppingList: <<create>>
+
+class Quantity #lightblue {
+    - amount: int
+    - unit: Unit
+}
+Quantity -lo Item
+Quantity --|> InterfaceQuantity
+
+enum Unit #lightblue
+Unit -lo Quantity
+
+class ShoppingList #lightblue {
+    - items: list[Item]
+}
+ShoppingList --|> AbstractItemList
+
+class ItemFactory #lightblue {
+    + createRecipeItem(itemName: String, preparationInformation: String)
+    + createShoppingListItem(itemName: String)
+}
+ItemFactory ..> Item: <<create>>
+
+class Item #lightblue {
+    - itemQuantity: Quantity
+    - name: String
+}
+Item --|> InterfaceItem
+Item ..> InterfaceQuantity
+
+legend bottom right
+| **Color**         | **Layer**             |
+| <#lightblue>      | Application layer     |
+end legend
+@enduml

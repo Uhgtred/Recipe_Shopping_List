@@ -1,5 +1,7 @@
 package com.example.recipeShoppingList.application
 
+import com.example.recipeShoppingList.application.items.Item
+
 abstract class AbstractItemList {
     protected var itemListName: String = ""
     protected var items: MutableList<Item> = mutableListOf()
@@ -12,13 +14,9 @@ abstract class AbstractItemList {
         items.remove(item)
     }
 
-    fun getAllItems(): MutableList<Item> {
-        return items
-    }
+    fun getAllItems(): MutableList<Item> = items
 
-    fun getListName(): String {
-        return itemListName
-    }
+    fun getListName(): String = itemListName
 
     fun setListName(name: String) {
         itemListName = name.trim().lowercase().replaceFirstChar { it.uppercaseChar() }

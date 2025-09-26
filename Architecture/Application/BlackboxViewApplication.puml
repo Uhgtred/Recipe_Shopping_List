@@ -3,51 +3,50 @@ hide empty members
 
 
 interface API
-API ...> ShoppingListService
-API ...> RecipeService
+API ...> Services
 
+interface InterfaceListController #lightblue
 
-class ShoppingListController #lightblue
-ShoppingListController .d.> ShoppingList: <<manage>>
-ShoppingListController .r.> ItemFactory
+class ConcreteListController #lightblue
+ConcreteListController ..> ConcreteItemList: <<manage>>
+ConcreteListController ..> ItemFactory
+ConcreteListController -u-|> InterfaceListController
+ConcreteListController ..> ItemListFactory
 
 interface InterfaceItem #lightblue
 
+interface InterfaceQuantity #lightblue
+
 abstract class AbstractItemList #lightblue
-AbstractItemList o-u- Item
-AbstractItemList .u.> InterfaceItem
+AbstractItemList o-r- Item
+AbstractItemList ..> InterfaceItem
 
 class Quantity #lightblue
-Quantity -o Item
+Quantity -lo Item
+Quantity --|> InterfaceQuantity
 
 enum Unit #lightblue
 Unit -lo Quantity
 
-class RecipeController #lightblue
-RecipeController .d.> Recipe: <<manage>>
-RecipeController .l.> ItemFactory
+class ItemListFactory #lightblue
+ItemListFactory --> ConcreteItemList: <<create>>
 
-class Recipe #lightblue
-Recipe -l-|> AbstractItemList
-
-class ShoppingList #lightblue
-ShoppingList --|> AbstractItemList
+class ConcreteItemList #lightblue
+ConcreteItemList --|> AbstractItemList
 
 class ItemFactory #lightblue
 ItemFactory ..> Item: <<create>>
 
 class Item #lightblue
 Item --|> InterfaceItem
+Item ..> InterfaceQuantity
 
 interface Repository #khaki
 
-class ShoppingListService #plum
-ShoppingListService .r.> Repository
-ShoppingListService ..> ShoppingListController
+class Services #plum
+Services .r.> Repository
+Services ..> InterfaceListController
 
-class RecipeService #plum
-RecipeService ..> RecipeController
-RecipeService .l.> Repository
 
 
 legend bottom right
@@ -75,7 +74,7 @@ services and provides decoupling between the databases (or other storage-techniq
 application.
 
 # Listcontrollers
-ShoppingListController and RecipeController will both manage the lists that derive from
+ConcreteListController and RecipeController will both manage the lists that derive from
 AbstractItemList. They will create new lists, remember existing lists and also provide access to
 every list. This is also needed, so the services do not have to remember which lists are existing.
 That way the services are stateless and only act as a trigger for the requests of the api.
@@ -115,6 +114,6 @@ Firebender is going to be the choice for Authentication.
 
 # Services
 Each ConcreteList will need a dedicated service. This makes for less complicated Application-code.
-Downside with this is that each time a ShoppingList is being changed, created or deleted,
+Downside with this is that each time a ConcreteItemList is being changed, created or deleted,
 the corresponding service also has to be changed, created or deleted.
 This leads to higher coupling but lower overall complexity.
