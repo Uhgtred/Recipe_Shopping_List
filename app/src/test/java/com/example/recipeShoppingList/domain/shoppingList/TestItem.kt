@@ -1,15 +1,15 @@
 package com.example.recipeShoppingList.domain.shoppingList
 
-import com.example.recipeShoppingList.application.items.Item
 import com.example.recipeShoppingList.application.items.ItemFactory
+import com.example.recipeShoppingList.application.quantity.Unit
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
 
 class TestItem {
     val itemNameOne = "TestItemOne"
-    val itemUnitOne = "TestUnitOne"
-    var testItem = ItemFactory.createShoppingListItem(itemUnitOne)
+    val itemUnitOne = Unit.GRAM
+    var testItem = ItemFactory.createShoppingListItem(itemNameOne)
 
     @Test
     fun `test retrieve Name of the item`() {
@@ -22,8 +22,8 @@ class TestItem {
 
     @Test
     fun `test retrieve Unit of the item`() {
-        testItem.setItemUnit(itemUnitOne)
-        assertEquals(itemUnitOne, testItem.getItemUnit())
+        testItem.quantity?.setItemUnit(itemUnitOne)
+        assertEquals(itemUnitOne, testItem.quantity?.getItemUnit())
     }
 
     @Test
@@ -47,12 +47,12 @@ class TestItem {
     @Test
     fun `test change unit of item`() {
         // check if the first unit has been applied successfully
-        testItem.setItemUnit(itemUnitOne)
-        assertEquals(itemUnitOne, testItem.getItemUnit())
-        val newItemUnit: String = "km"
-        testItem.setItemUnit(newItemUnit)
+        testItem.quantity?.setItemUnit(itemUnitOne)
+        assertEquals(itemUnitOne, testItem.quantity?.getItemUnit())
+        val newItemUnit: Unit = Unit.KILOGRAM
+        testItem.quantity?.setItemUnit(newItemUnit)
         // check if the unit has been changed successfully
-        assertEquals(newItemUnit, testItem.getItemUnit())
+        assertEquals(newItemUnit, testItem.quantity?.getItemUnit())
         assertNotEquals(newItemUnit, itemUnitOne)
     }
 }

@@ -3,6 +3,7 @@ package com.example.recipeShoppingList.domain.shoppingList
 import com.example.recipeShoppingList.application.AbstractItemList
 import com.example.recipeShoppingList.application.items.Item
 import com.example.recipeShoppingList.application.items.ItemFactory
+import com.example.recipeShoppingList.application.quantity.Unit
 import com.example.recipeShoppingList.domain.shoppingList.application.fakes.FakeItemListOne
 import com.example.recipeShoppingList.domain.shoppingList.application.fakes.FakeItemListTwo
 import org.junit.Assert.assertEquals
@@ -17,9 +18,9 @@ class TestAbstractItemList {
 
     init {
         fakeItemOne.setItemName("FakeItemOne")
-        fakeItemOne.setItemUnit("FakeItemUnitOne")
+        fakeItemOne.quantity?.setItemUnit(Unit.GRAM)
         fakeItemTwo.setItemName("FakeItemTwo")
-        fakeItemTwo.setItemUnit("FakeItemUnitTwo")
+        fakeItemTwo.quantity?.setItemUnit(Unit.KILOGRAM)
     }
 
     val itemListOne =
