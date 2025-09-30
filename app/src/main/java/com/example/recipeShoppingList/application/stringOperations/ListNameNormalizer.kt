@@ -1,6 +1,6 @@
 package com.example.recipeShoppingList.application.stringOperations
 
-class NameNormalizer {
+class ListNameNormalizer : NormalizerInterface {
     companion object {
         fun normalize(name: String): String =
             name

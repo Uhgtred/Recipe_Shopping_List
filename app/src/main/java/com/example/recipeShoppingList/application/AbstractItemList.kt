@@ -1,11 +1,11 @@
 package com.example.recipeShoppingList.application
 
 import com.example.recipeShoppingList.application.items.Item
-import com.example.recipeShoppingList.application.stringOperations.NameNormalizer
+import com.example.recipeShoppingList.application.stringOperations.ListNameNormalizer
 
 abstract class AbstractItemList {
     protected var itemListName: String = ""
-    protected var items: MutableList<Item> = mutableListOf()
+    protected val items: MutableList<Item> = mutableListOf()
 
     fun addItem(item: Item) {
         this.items.add(item)
@@ -20,11 +20,11 @@ abstract class AbstractItemList {
     fun getListName(): String = itemListName
 
     fun setListName(name: String) {
-        itemListName = normalizeListName(name, NameNormalizer)
+        itemListName = normalizeListName(name, ListNameNormalizer)
     }
 
     private fun normalizeListName(
         name: String,
-        normalizer: NameNormalizer.Companion,
+        normalizer: ListNameNormalizer.Companion,
     ): String = normalizer.normalize(name)
 }

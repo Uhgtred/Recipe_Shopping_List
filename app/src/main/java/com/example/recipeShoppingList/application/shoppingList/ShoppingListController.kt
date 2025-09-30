@@ -29,4 +29,12 @@ class ShoppingListController {
         val shoppingList = getShoppingList(listName)
         shoppingList?.addItem(item)
     }
+
+    fun removeItemFromShoppingList(
+        listName: String,
+        item: Item,
+    ) {
+        val shoppingList = getShoppingList(listName)
+        shoppingList?.removeItem(item)
+    }
 }

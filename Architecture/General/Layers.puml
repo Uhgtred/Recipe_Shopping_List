@@ -18,4 +18,13 @@ Service_Layer --> Repository_Layer
 Service_Layer --> Application_Layer
 
 Repository_Layer --> Database_Layer
+
+legend bottom right
+| **Color**         | **Layer**             |
+| <#lightsalmon>    | Presentation layer    |
+| <#lightgreen>     | Database layer        |
+| <#khaki>          | Repositories          |
+| <#lightblue>      | Application layer     |
+| <#plum>           | Service layer         |
+end legend
 @enduml

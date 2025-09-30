@@ -21,4 +21,12 @@ API ..> ServiceLayer
 
 component GUI #lightsalmon
 GUI ..> API
+
+legend bottom left
+| **Color**         | **Layer**             |
+| <#lightgreen>     | Database layer        |
+| <#khaki>          | Repositories          |
+| <#lightblue>      | Application layer     |
+| <#plum>           | Service layer         |
+end legend
 @enduml
