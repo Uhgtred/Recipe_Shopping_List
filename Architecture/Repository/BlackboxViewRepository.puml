@@ -1,4 +1,4 @@
-@startuml
+@startuml Repository
 hide empty members
 
 package Repository #khaki{

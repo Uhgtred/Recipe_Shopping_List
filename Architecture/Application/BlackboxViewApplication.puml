@@ -1,4 +1,4 @@
-@startuml
+@startuml BlackboxViewApplication
 hide empty members
 
 
@@ -13,18 +13,18 @@ ConcreteListController ..> ItemListFactory
 
 interface InterfaceItem #lightblue
 
-interface InterfaceQuantity #lightblue
+' interface InterfaceQuantity #lightblue
 
 abstract class AbstractItemList #lightblue
 AbstractItemList o-r- Item
 AbstractItemList ..> InterfaceItem
 
-class Quantity #lightblue
-Quantity -lo Item
-Quantity --|> InterfaceQuantity
+' class Quantity #lightblue
+' Quantity -lo Item
+' Quantity --|> InterfaceQuantity
 
 enum Unit #lightblue
-Unit -lo Quantity
+Unit -lo Item
 
 class ItemListFactory #lightblue
 ItemListFactory --> ConcreteItemList: <<create>>
@@ -37,7 +37,7 @@ ItemFactory ..> Item: <<create>>
 
 class Item #lightblue
 Item --|> InterfaceItem
-Item ..> InterfaceQuantity
+' Item ..> InterfaceQuantity
 
 interface Repository #khaki
 
