@@ -6,7 +6,7 @@ data class Item(
     var name: String,
     var quantity: Float? = null,
     var unit: Unit? = null,
-    var price: Float? = null
+    var price: Float? = null,
 ) : InterfaceItem {
     override fun setItemName(itemName: String) {
         // unifying the name of the item

@@ -39,7 +39,7 @@ enum class Unit(
             val lowerValue = value.lowercase()
             return entries.find {
                 it.name.lowercase() == lowerValue ||
-                    it.abbreviation.lowercase() == lowerValue ||
+                    it.ab;breviation.lowercase() == lowerValue ||
                     it.displayName.lowercase() == lowerValue
             }
         }
